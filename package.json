@@ -24,6 +24,7 @@
     "vite": "^5.0.0"
   },
   "dependencies": {
-    "ogl": "^1.0.11"
+    "ogl": "^1.0.11",
+    "react-router-dom": "^7.4.0"
   }
 }

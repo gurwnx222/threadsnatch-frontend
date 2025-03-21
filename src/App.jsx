@@ -1,26 +1,35 @@
 import './App.css'
-import Aurora from './Components/Aurora';
+import Navbar from './Components/Navbar'
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import About from './Pages/About';
+import Home from './Pages/Home';
+import Contact from './Pages/Contact';
 
-import Homepage from './Pages/Homepage';
 
 
 export default function App() {
   return (
     
-    // Aurora background
-    <div className="relative h-screen w-full">
-          <Aurora className="fixed top-0 left-0 w-full h-full z-[-1]"
-          colorStops={["#3A29FF", "#FF94B4", "#FF3232"]}
-          blend={0.5}
-          amplitude={1.0}
-          speed={0.5}
-      />
+<div className="relative h-screen w-full overflow-hidden">
+  <div 
+    className="absolute inset-0 bg-cover bg-center animate-moveBg" 
+    style={{ backgroundImage: "url('/BG-img1.jpg')" }}>
+  </div>
+  
+  {/* Navbar */}
+  <nav className="relative top-0 left-0 w-full p-4 text-white">
+  <Router>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+      </Routes>
+    </Router>
+  </nav>
 
-      {/* Main content */}
-      <div className='flex items-center justify-center h-full text-3xl'>
-        <Homepage />
-      </div>
 
-    </div>
+</div>
+
   )
 }

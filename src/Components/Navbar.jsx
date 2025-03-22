@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
-    <nav className='font-montserrat fixed top-4 left-0 w-full bg-white shadow-md z-50'>
+    <nav className=' text-white font-montserrat absolute top-4 left-0 w-full bg-white shadow-md z-50'>
       <div className='container mx-auto flex justify-around items-center font-medium text-xl absolute top-6'>
         <h1>threadSnatch</h1>
         <ul className='flex space-x-6 cursor-pointer'>

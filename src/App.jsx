@@ -10,25 +10,21 @@ import Contact from './Pages/Contact';
 export default function App() {
   return (
     
-<div className="relative h-screen w-full overflow-hidden">
-  <div 
-    className="absolute inset-0 bg-cover bg-center animate-moveBg" 
-    style={{ backgroundImage: "url('/BG-img1.jpg')" }}>
+<div className='h-auto'>
+
+  <div className='className="relative  w-full"'>
+    <Router>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+        </Routes>
+      </Router>
   </div>
+
+
   
-  {/* Navbar */}
-  <nav className="relative top-0 left-0 w-full p-4 text-white">
-  <Router>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-      </Routes>
-    </Router>
-  </nav>
-
-
 </div>
 
   )

@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "ogl": "^1.0.11",
-    "react-router-dom": "^7.4.0"
+    "react-router-dom": "^7.4.0",
+    "swiper": "^11.2.6"
   }
 }

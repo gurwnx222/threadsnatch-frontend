@@ -9,15 +9,16 @@ export default {
       fontFamily: {
         montserrat: ["Montserrat", "sans-serif"], // Add Montserrat font
       },
-      keyframes: {
-        moveBg: {
-          "0%": { backgroundPosition: "0% 0%" },
-          "100%": { backgroundPosition: "100% 100%" },
-        },
-      },
-      animation: {
-        moveBg: "moveBg 10s linear infinite alternate",
-      },
+keyframes: {
+  moveBg: {
+    "0%": { backgroundPosition: "0% 0%" },
+    "100%": { backgroundPosition: "50% 50%" }, // Avoids extreme movement
+  },
+},
+animation: {
+  moveBg: "moveBg 10s linear infinite alternate",
+},
+
     },
   },
   plugins: [],

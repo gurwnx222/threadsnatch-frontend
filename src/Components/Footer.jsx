@@ -1,5 +1,6 @@
 import React from 'react'
 
+
 const Footer = () => {
   return (
     <div className="relative w-auto h-auto min-h-[300px] p-6 text-white 
@@ -12,10 +13,10 @@ const Footer = () => {
           <a href="/">DOCS ↗</a>
         </h2>
         <h2 className="text-2xl sm:text-3xl font-bold hover:text-gray-300 transition-all">
-          <a href="/">ABOUT ↗</a>
+          <a href="/about">ABOUT ↗</a>
         </h2>
         <h2 className="text-2xl sm:text-3xl font-bold hover:text-gray-300 transition-all">
-          <a href="/">T&C ↗</a>
+          <a href="/tnc">T&C ↗</a>
         </h2>
       </nav>
   

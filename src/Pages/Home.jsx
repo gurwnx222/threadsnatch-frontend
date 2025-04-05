@@ -5,6 +5,7 @@ import Footer from "../Components/Footer";
 
 
 const Home = () => {
+  const apiLink = "https://rapidapi.com/threadertech/api/threadsnatch-api/playground/apiendpoint_02a7614b-8fcd-41cf-bc91-5de42d5dc5c9"
 
   return (
     <div className='font-montserrat h-auto w-auto'>
@@ -13,7 +14,6 @@ const Home = () => {
         style={{ backgroundImage: "url('/BG-img1.jpg')" }}>
       </div>
         <Navbar />
-        
       {/* Main Content - First screen */}
       <div className="relative flex flex-col items-center justify-center min-h-screen text-white text-center px-6">
   {/* Title */}
@@ -34,9 +34,9 @@ const Home = () => {
 
   {/* Buttons */}
   <div className="flex items-center justify-center mt-10 sm:mt-16 gap-4 sm:gap-8">
-    <button className="bg-[linear-gradient(103.2deg,#4624C2_31.08%,#7F5BFF_92.12%)] hover:opacity-90 transition-all text-white py-3 px-6 rounded-xl text-lg">
+    <a href={apiLink} target="__blank" className="bg-[linear-gradient(103.2deg,#4624C2_31.08%,#7F5BFF_92.12%)] hover:opacity-90 transition-all text-white py-3 px-6 rounded-xl text-lg">
       Get API
-    </button>
+    </a>
     <button className="bg-white hover:bg-gray-300 text-black py-3 px-6 rounded-xl flex items-center gap-2 text-lg">
       <img src='/Vector.svg' alt="Docs Icon" className="w-5 h-5" /> Docs
     </button>

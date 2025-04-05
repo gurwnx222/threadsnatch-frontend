@@ -4,3 +4,6 @@
 @tailwind components;
 @tailwind utilities;
 
+body.tnc-page nav {
+    color: black !important;
+  }

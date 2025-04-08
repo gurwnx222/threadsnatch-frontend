@@ -10,11 +10,11 @@ const Home = () => {
 
   return (
     <div className="font-montserrat h-auto w-auto">
+      <Navbar />
       <div
         className="fixed top-0 left-0 w-full h-full bg-cover bg-center animate-moveBg sm:bg-cover"
         style={{ backgroundImage: "url('/BG-img1.jpg')" }}
       ></div>
-      <Navbar />
       {/* Main Content - First screen */}
       <div className="relative flex flex-col items-center justify-center min-h-screen text-white text-center px-6">
         {/* Title */}

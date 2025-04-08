@@ -6,13 +6,9 @@ import Home from './Pages/Home';
 import Contact from './Pages/Contact';
 import TNC from './Pages/TNC';
 
-
-
 export default function App() {
   return (
-    
 <div className='h-auto'>
-
   <div className='className="relative  w-full"'>
     <Router>
         <Navbar />
@@ -24,10 +20,6 @@ export default function App() {
         </Routes>
       </Router>
   </div>
-
-
-  
 </div>
-
   )
 }

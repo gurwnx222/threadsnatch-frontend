@@ -34,9 +34,20 @@ const About = () => {
             </>
           }
         />
-
-        <PhilosophyCard name="Meet  Gurwinder  –  It’s ME" description="As a full stack developer with a strong foundation in the MERN stack, I bring together the best of both frontend and backend development with the blend of UI/UX designing.  For our backend, I engineered a robust solution using Express and Puppeteer Core—leveraging stealth technologies to stay ahead of the curve. I then deployed our services with a production-ready serverless framework, ensuring scalability and reliability without compromising performance." 
-          className="mb-10"
+   <PhilosophyCard   name="Meet Gurwinder – It's ME" 
+          description={
+            <>
+           As a full stack developer with a strong foundation in the MERN stack, I bring together the best of both frontend and backend development with the blend of UI/UX designing.  For our backend, I engineered a robust solution using Express and Puppeteer Core—leveraging stealth technologies to stay ahead of the curve. I then deployed our services with a production-ready serverless framework, ensuring scalability and reliability without compromising performance. {" "}
+              <a 
+                href="https://twitter.com/" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="text-blue-400 hover:underline"
+              >
+                Twitter @X
+              </a>.
+            </>
+          }
         />
       </div>
 

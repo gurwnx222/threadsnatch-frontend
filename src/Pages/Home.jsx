@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Navbar from "../Components/Navbar";
 import Carousel from "../Components/Carousel";
 import Footer from "../Components/Footer";
+import { Zap, Plug, Shield, Target } from "lucide-react";
 
 const Home = () => {
   const apiLink =
@@ -92,39 +93,42 @@ const Home = () => {
         <p className="text-xl text-center">
           Explore the Features That Transform Ideas into Impact
         </p>
-
-        {/* Box Content */}
-        <div className="w-full sm:w-4/5 lg:w-3/5 h-auto border-2 border-dashed border-[rgba(151,71,255,1)] p-4 sm:p-6">
-          {/* Feature Box */}
-          {[
-            {
-              title: "Lightning Fast Performance",
-              desc: "Extract all post links in seconds—experience rapid results that keep your workflow moving.",
-            },
-            {
-              title: "Effortless Integration",
-              desc: "Simply paste a meta threads post link and start scraping—our API fits right into your existing setup with zero hassle.",
-            },
-            {
-              title: "Unmatched Reliability",
-              desc: "Trust our high success rate to consistently deliver every desired link, so you never miss a beat.",
-            },
-            {
-              title: "Precision Accuracy",
-              desc: "Capture every link with pinpoint accuracy, ensuring you always have complete and reliable data.",
-            },
-          ].map((feature, index) => (
-            <div
-              key={index}
-              className="w-auto lg:w-[51rem] h-auto m-3 p-5 flex flex-col gap-2 justify-center border-4 border-[#605e6337] 
+        {/* Feature Box */}
+        {[
+          {
+            title: "Lightning Fast Performance",
+            desc: "Extract all post links in seconds—experience rapid results that keep your workflow moving.",
+            icon: Zap,
+          },
+          {
+            title: "Effortless Integration",
+            desc: "Simply paste a meta threads post link and start scraping—our API fits right into your existing setup with zero hassle.",
+            icon: Plug,
+          },
+          {
+            title: "Unmatched Reliability",
+            desc: "Trust our high success rate to consistently deliver every desired link, so you never miss a beat.",
+            icon: Shield,
+          },
+          {
+            title: "Precision Accuracy",
+            desc: "Capture every link with pinpoint accuracy, ensuring you always have complete and reliable data.",
+            icon: Target,
+          },
+        ].map((feature, index) => (
+          <div
+            key={index}
+            className="w-auto lg:w-[51rem] h-auto m-3 p-5 flex flex-col gap-2 justify-center border-4 border-[#605e6337] 
         bg-[rgba(77,77,77,0.1)] rounded-lg transition-transform duration-300 
         hover:scale-[1.02] hover:-translate-y-1 hover:bg-[rgba(77,77,77,0.2)] hover:shadow-lg"
-            >
+          >
+            <div className="flex items-center gap-3">
+              <feature.icon size={24} className="text-white" />
               <h3 className="text-lg">{feature.title}</h3>
-              <p className="pl-4">{feature.desc}</p>
             </div>
-          ))}
-        </div>
+            <p className="pl-4">{feature.desc}</p>
+          </div>
+        ))}
 
         {/* Footer */}
         <div className="w-[100vw]">

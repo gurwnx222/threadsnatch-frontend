@@ -4,12 +4,14 @@ import { motion, useMotionValue, useTransform } from "framer-motion";
 import { FiVideo, FiFileText, FiLayers } from "react-icons/fi";
 import fetchCrselVideo from "/fetch-crsel.mp4";
 import fetchVidVideo from "/fetch-vid.mp4";
+import fetchImgVideo from "/fetch-img.mp4";
 const DEFAULT_ITEMS = [
   {
     title: "Fetch Image",
     description: "Get all The Related Details of Image in few secs.",
     id: 1,
     icon: <FiFileText className="h-[16px] w-[16px] text-white" />,
+    videoSrc: fetchImgVideo,
   },
   {
     title: "Fetch Video",

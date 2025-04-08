@@ -53,35 +53,30 @@ const Home = () => {
 
       {/* Down page content - second */}
       <div className="relative min-h-screen flex flex-col justify-center items-center bg-white px-4 w-full">
-        {/* Seamless Integration Section */}
-        <div className="flex items-center flex-col gap-4 text-center mt-10 sm:mt-16 w-full max-w-4xl">
-          <h2 className="font-medium text-2xl sm:text-3xl">
-            Seamless Integration
-          </h2>
-          <div className="w-full max-w-2xl h-[250px] sm:h-[300px] bg-[#D9D9D9] rounded-lg"></div>
-        </div>
-
         {/* Fetch Data */}
         <div className="flex flex-col items-center gap-4 mt-16 sm:mt-24 w-full max-w-4xl">
-          <h2 className="font-medium text-2xl sm:text-3xl">
+          <h2 className="font-medium text-2xl sm:text-3xl text-center">
             Elevate your digital narrative — effortlessly fetch carousel posts,
             videos, and images from Threads with our API and transform your user
             experience!
           </h2>
-          <div className="flex items-center justify-center w-full max-w-2xl h-[250px] sm:h-[300px] rounded-lg">
-            <div style={{ height: "300px", position: "relative" }}>
-              <Carousel
-                baseWidth={670}
-                autoplay={true}
-                autoplayDelay={3000}
-                pauseOnHover={true}
-                loop={true}
-                round={false}
-              />
-            </div>
+
+          {/* Updated carousel container */}
+          <div className="w-full max-w-2xl px-4 sm:px-0">
+            <Carousel
+              baseWidth={670}
+              autoplay={true}
+              autoplayDelay={3000}
+              pauseOnHover={true}
+              loop={true}
+              round={false}
+              className="w-full"
+            />
           </div>
         </div>
       </div>
+
+      {/* Rest of your component remains unchanged */}
       {/* Down page content - third */}
       {/* Background */}
       <div

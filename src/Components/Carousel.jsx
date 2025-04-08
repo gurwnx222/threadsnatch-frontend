@@ -2,25 +2,28 @@ import { useEffect, useState, useRef } from "react";
 import { motion, useMotionValue, useTransform } from "framer-motion";
 // replace icons with your own if needed
 import { FiVideo, FiFileText, FiLayers } from "react-icons/fi";
-
+import fetchCrselVideo from "/fetch-crsel.mp4";
+import fetchVidVideo from "/fetch-vid.mp4";
 const DEFAULT_ITEMS = [
   {
-    title: "Text Animations",
-    description: "Cool text animations for your projects.",
+    title: "Fetch Image",
+    description: "Get all The Related Details of Image in few secs.",
     id: 1,
     icon: <FiFileText className="h-[16px] w-[16px] text-white" />,
   },
   {
-    title: "Animations",
-    description: "Smooth animations for your projects.",
+    title: "Fetch Video",
+    description: "Get All the Video Details in and HD Download Link",
     id: 2,
     icon: <FiVideo className="h-[16px] w-[16px] text-white" />,
+    videoSrc: fetchVidVideo,
   },
   {
-    title: "Components",
-    description: "Reusable components for your projects.",
+    title: "Fetch Carousel",
+    description: "Get All The Download Links Of Carousel.",
     id: 3,
     icon: <FiLayers className="h-[16px] w-[16px] text-white" />,
+    videoSrc: fetchCrselVideo,
   },
 ];
 
@@ -171,27 +174,46 @@ export default function Carousel({
               key={index}
               className={`relative shrink-0 flex flex-col ${
                 round
-                  ? "items-center justify-center text-center bg-[#060606] border-0"
-                  : "items-start justify-between bg-[#222] border border-[#222] rounded-[12px]"
+                  ? "items-center justify-center text-center order-0"
+                  : "items-start justify-between border border-[#222] rounded-[12px]"
               } overflow-hidden cursor-grab active:cursor-grabbing`}
               style={{
                 width: itemWidth,
-                height: round ? itemWidth : "100%",
+                height: round ? itemWidth : "auto",
                 rotateY: rotateY,
                 ...(round && { borderRadius: "50%" }),
               }}
               transition={effectiveTransition}
             >
-              <div className={`${round ? "p-0 m-0" : "mb-4 p-5"}`}>
-                <span className="flex h-[28px] w-[28px] items-center justify-center rounded-full bg-[#060606]">
-                  {item.icon}
-                </span>
-              </div>
-              <div className="p-5">
-                <div className="mb-1 font-black text-lg text-white">
-                  {item.title}
+              {/* Video Background */}
+              {item.videoSrc && (
+                <div className="absolute inset-0 w-full h-full">
+                  <video
+                    src={item.videoSrc}
+                    className="object-cover w-full h-full"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                  />
+                  {/* Semi-transparent overlay for better text visibility */}
+                  <div className="absolute inset-0 bg-black bg-opacity-30" />
                 </div>
-                <p className="text-sm text-white">{item.description}</p>
+              )}
+
+              {/* Content */}
+              <div className="relative z-10 flex flex-col h-full w-full">
+                <div className={`${round ? "p-0 m-0" : "mb-4 p-5"}`}>
+                  <span className="flex h-[28px] w-[28px] items-center justify-center rounded-full bg-[#060606]">
+                    {item.icon}
+                  </span>
+                </div>
+                <div className="p-5 mt-auto">
+                  <div className="mb-1 font-black text-lg text-white">
+                    {item.title}
+                  </div>
+                  <p className="text-sm text-white">{item.description}</p>
+                </div>
               </div>
             </motion.div>
           );

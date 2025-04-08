@@ -9,7 +9,7 @@ const Footer = () => {
     >
       {/* Navigation Links */}
       <nav className="font-montserrat space-y-9 mt-8">
-      <h2 className="text-5xl font-bold hover:text-gray-300 transition-all">
+        <h2 className="text-5xl font-bold hover:text-gray-300 transition-all">
           <Link to="/home">HOME ↗</Link>
         </h2>
         <h2 className="text-5xl font-bold hover:text-gray-300 transition-all">

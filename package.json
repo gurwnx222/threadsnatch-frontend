@@ -24,6 +24,7 @@
     "vite": "^5.0.0"
   },
   "dependencies": {
+    "@vercel/analytics": "^1.5.0",
     "framer-motion": "^12.6.3",
     "lucide-react": "^0.483.0",
     "ogl": "^1.0.11",

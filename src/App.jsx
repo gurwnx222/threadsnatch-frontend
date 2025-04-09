@@ -1,6 +1,7 @@
 import "./App.css";
 import Navbar from "./Components/Navbar";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Analytics } from "@vercel/analytics/react";
 import About from "./Pages/About";
 import Home from "./Pages/Home";
 import Contact from "./Pages/Contact";
@@ -9,6 +10,7 @@ import TNC from "./Pages/terms";
 export default function App() {
   return (
     <div className="h-auto">
+      <Analytics />
       <div className='className="relative  w-full"'>
         <Router>
           <Navbar />

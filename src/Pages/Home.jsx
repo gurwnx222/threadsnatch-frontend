@@ -7,7 +7,7 @@ import { Zap, Plug, Shield, Target } from "lucide-react";
 const Home = () => {
   const apiLink =
     "https://rapidapi.com/threadertech/api/threadsnatch-api/playground/apiendpoint_02a7614b-8fcd-41cf-bc91-5de42d5dc5c9";
-
+  const docsLink = "https://docs.threadsnatch.online/";
   return (
     <div className="font-montserrat relative min-h-screen w-full overflow-x-hidden">
       {/* Background Image - moved to a lower z-index */}
@@ -52,9 +52,13 @@ const Home = () => {
             >
               Get API
             </a>
-            <button className="bg-white hover:bg-gray-300 text-black py-3 px-6 rounded-xl flex items-center gap-2 text-lg">
+            <a
+              href={docsLink}
+              target="__blank"
+              className="bg-white hover:bg-gray-300 text-black py-3 px-6 rounded-xl flex items-center gap-2 text-lg"
+            >
               <img src="/Vector.svg" alt="Docs Icon" className="w-5 h-5" /> Docs
-            </button>
+            </a>
           </div>
           {/* Animated scroll indicator */}
           <div className="flex flex-col items-center text-white relative top-10 animate-pulse">

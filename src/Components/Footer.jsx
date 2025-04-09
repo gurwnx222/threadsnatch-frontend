@@ -14,7 +14,9 @@ const Footer = () => {
           <Link to="/home">HOME ↗</Link>
         </h2>
         <h2 className="text-5xl font-bold hover:text-gray-300 transition-all">
-          <Link to="/docs">DOCS ↗</Link>
+          <a href="https://docs.threadsnatch.online/" target="__blank">
+            DOCS ↗
+          </a>
         </h2>
         <h2 className="text-5xl font-bold hover:text-gray-300 transition-all">
           <Link to="/about">ABOUT ↗</Link>

@@ -42,9 +42,12 @@ export default function Carousel({
   pauseOnHover = false,
   loop = false,
   round = false,
+  className = "",
 }) {
+  const containerRef = useRef(null);
+  const [containerWidth, setContainerWidth] = useState(baseWidth);
   const containerPadding = 16;
-  const itemWidth = baseWidth - containerPadding * 2;
+  const itemWidth = containerWidth - containerPadding * 2;
   const trackItemOffset = itemWidth + GAP;
 
   const carouselItems = loop ? [...items, items[0]] : items;
@@ -53,7 +56,26 @@ export default function Carousel({
   const [isHovered, setIsHovered] = useState(false);
   const [isResetting, setIsResetting] = useState(false);
 
-  const containerRef = useRef(null);
+  // Handle responsive sizing
+  useEffect(() => {
+    const handleResize = () => {
+      if (containerRef.current) {
+        const parentWidth = containerRef.current.parentElement.clientWidth;
+        const newWidth = Math.min(parentWidth - 32, baseWidth); // 32px for parent padding
+        setContainerWidth(newWidth);
+      }
+    };
+
+    // Initial size calculation
+    handleResize();
+
+    // Add event listener for window resize
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup
+    return () => window.removeEventListener("resize", handleResize);
+  }, [baseWidth]);
+
   useEffect(() => {
     if (pauseOnHover && containerRef.current) {
       const container = containerRef.current;
@@ -131,17 +153,26 @@ export default function Carousel({
         },
       };
 
+  // Calculate aspect ratio for item height (16:9 for videos)
+  const itemHeight = round ? itemWidth : Math.floor(itemWidth * 0.6);
+
+  // Add extra height for pagination dots
+  const containerHeight = round
+    ? containerWidth
+    : itemHeight + containerPadding * 2 + 28; // 28px for dots
+
   return (
     <div
       ref={containerRef}
-      className={`relative overflow-hidden p-4 ${
+      className={`relative overflow-hidden p-4 mx-auto ${
         round
           ? "rounded-full border border-white"
           : "rounded-[24px] border border-[#222]"
-      }`}
+      } ${className}`}
       style={{
-        width: `${baseWidth}px`,
-        ...(round && { height: `${baseWidth}px` }),
+        width: `${containerWidth}px`,
+        maxWidth: "100%",
+        height: `${containerHeight}px`,
       }}
     >
       <motion.div
@@ -181,7 +212,7 @@ export default function Carousel({
               } overflow-hidden cursor-grab active:cursor-grabbing`}
               style={{
                 width: itemWidth,
-                height: round ? itemWidth : "auto",
+                height: round ? itemWidth : itemHeight,
                 rotateY: rotateY,
                 ...(round && { borderRadius: "50%" }),
               }}
@@ -221,12 +252,14 @@ export default function Carousel({
           );
         })}
       </motion.div>
+
+      {/* Navigation Dots */}
       <div
-        className={`flex w-full justify-center ${
+        className={`flex w-full justify-center mt-4 ${
           round ? "absolute z-20 bottom-12 left-1/2 -translate-x-1/2" : ""
         }`}
       >
-        <div className="mt-4 flex w-[150px] justify-between px-8">
+        <div className="flex justify-center space-x-2 px-4">
           {items.map((_, index) => (
             <motion.div
               key={index}

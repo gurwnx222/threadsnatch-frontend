@@ -1,9 +1,10 @@
-import React from 'react'
+import React from "react";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <div className="relative w-auto h-auto min-h-[300px] p-6 text-white  
+    <div
+      className="relative w-auto h-auto min-h-[300px] p-6 text-white  
     rounded-tr-[100px] sm:rounded-tr-[150px] bg-gradient-to-b from-black to-[#2B2019] 
     flex flex-col justify-center items-center text-center"
     >
@@ -22,13 +23,13 @@ const Footer = () => {
           <Link to="/terms">T&C ↗</Link>
         </h2>
       </nav>
-  
+
       {/* Copyright Notice */}
       <p className="mt-6 sm:mt-10 text-gray-400 text-sm sm:text-base">
         2025 © All rights reserved
       </p>
     </div>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;

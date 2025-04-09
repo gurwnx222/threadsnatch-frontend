@@ -21,13 +21,19 @@ const Navbar = () => {
         {/* Navbar Links for Desktop */}
         <ul className="hidden md:flex md:space-x-6 cursor-pointer">
           <li>
-            <Link to="/" className="hover:text-gray-300">Home</Link>
+            <Link to="/" className="hover:text-gray-300">
+              Home
+            </Link>
           </li>
           <li>
-            <Link to="/about" className="hover:text-gray-300">About</Link>
+            <Link to="/about" className="hover:text-gray-300">
+              About
+            </Link>
           </li>
           <li>
-            <Link to="/contact" className="hover:text-gray-300">Contact</Link>
+            <Link to="/contact" className="hover:text-gray-300">
+              Contact
+            </Link>
           </li>
         </ul>
       </div>
@@ -44,20 +50,32 @@ const Navbar = () => {
         >
           <FiX />
         </button>
-        <ul className="flex flex-col items-center mt-20 space-y-6 text-xl">
+        <ul className="flex flex-col items-center mt-40 space-y-6 text-2xl">
           <li>
-            <Link to="/" className="hover:text-gray-300" onClick={() => setIsOpen(false)}>
-              Home
+            <Link
+              to="/"
+              className="hover:text-gray-300"
+              onClick={() => setIsOpen(false)}
+            >
+              Home /
             </Link>
           </li>
           <li>
-            <Link to="/about" className="hover:text-gray-300" onClick={() => setIsOpen(false)}>
-              About
+            <Link
+              to="/about"
+              className="hover:text-gray-300"
+              onClick={() => setIsOpen(false)}
+            >
+              About /
             </Link>
           </li>
           <li>
-            <Link to="/contact" className="hover:text-gray-300" onClick={() => setIsOpen(false)}>
-              Contact
+            <Link
+              to="/contact"
+              className="hover:text-gray-300"
+              onClick={() => setIsOpen(false)}
+            >
+              Contact /
             </Link>
           </li>
         </ul>

@@ -1,0 +1,108 @@
+[33mcommit 47c7a138637deecd274c349fef44184b4a41263c[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mTesting[m[33m, [m[1;31morigin/Testing[m[33m)[m
+Merge: 4d29cbe 73473f8
+Author: Gurwinder Singh <threader.corp@gmail.com>
+Date:   Tue Apr 8 16:58:41 2025 +0530
+
+    Merge branch 'main' into Testing
+
+[33mcommit 73473f8c148bf90c174b769aef7398571ae07c61[m
+Author: gurwnx222 <threader.corp@gmail.com>
+Date:   Tue Apr 8 16:46:15 2025 +0530
+
+    ready to launch
+
+[33mcommit 8b30f291c5513b4267255c04408a148d48068d3b[m
+Author: gurwnx222 <threader.corp@gmail.com>
+Date:   Tue Apr 8 14:35:27 2025 +0530
+
+    adding videos
+
+[33mcommit 902abc24095eb28ffcd37fe933b687a0ae6a0644[m
+Author: gurwnx222 <threader.corp@gmail.com>
+Date:   Sun Apr 6 06:59:47 2025 +0530
+
+    seo optimization and enhanced carousel slider
+
+[33mcommit 7229c54ff0e282cabafadfdc1bdb5b03612e5bec[m
+Author: gurwnx222 <threader.corp@gmail.com>
+Date:   Sat Apr 5 22:05:23 2025 +0530
+
+    Fixing footer links, creating contact us, and adding clickable links to the buttons
+
+[33mcommit 4d29cbe29953eee6ef7aefbf524936a3e82e7967[m
+Author: YashChandan21 <yashparaschandan4@gmail.com>
+Date:   Sat Apr 5 17:13:57 2025 +0530
+
+    Added TNC
+
+[33mcommit 92b1e9763ca98fb8ea3b3247df01af52387133ba[m
+Merge: 8c677ef 3f34ee3
+Author: Gurwinder Singh <threader.corp@gmail.com>
+Date:   Thu Apr 3 19:24:48 2025 +0530
+
+    Merge pull request #4 from YashChandan21/Testing
+    
+    Added about us page
+
+[33mcommit 3f34ee305be6e6eb5d7f9473b0f7c77f88da87a1[m
+Author: YashChandan21 <yashparaschandan4@gmail.com>
+Date:   Sat Mar 29 17:26:09 2025 +0530
+
+    Added about us page
+
+[33mcommit 8c677efe84b8c16b39dca3321f4df154d5a6bc3a[m
+Merge: a32202a 9c8953d
+Author: Gurwinder Singh <threader.corp@gmail.com>
+Date:   Sun Mar 23 04:46:28 2025 -0700
+
+    Merge pull request #3 from YashChandan21/Testing
+    
+    Completed web page
+
+[33mcommit 9c8953d853b1aba96478f9729e422841484a583b[m
+Author: YashChandan21 <yashparaschandan4@gmail.com>
+Date:   Sun Mar 23 16:29:58 2025 +0530
+
+    Completed web page
+
+[33mcommit a32202a7a045bdf309f3b687642315fa844f7e69[m
+Merge: c672641 48aeb20
+Author: Gurwinder Singh <threader.corp@gmail.com>
+Date:   Sat Mar 22 04:11:19 2025 -0700
+
+    Merge pull request #2 from YashChandan21/Testing
+    
+    Another great commit !!
+
+[33mcommit 48aeb2046c85564884e2bda0e85ee8291f00fbae[m
+Author: YashChandan21 <yashparaschandan4@gmail.com>
+Date:   Sat Mar 22 16:28:24 2025 +0530
+
+    Homepage screen section done
+
+[33mcommit 9dd68f7e690d364a0bfb2eb60f7bdf71c2797bc2[m
+Author: YashChandan21 <yashparaschandan4@gmail.com>
+Date:   Fri Mar 21 15:21:30 2025 +0530
+
+    First page edited
+
+[33mcommit c67264151e7764d962551d7be040b6debf11d4df[m
+Merge: b823bb4 53ad939
+Author: Gurwinder Singh <threader.corp@gmail.com>
+Date:   Wed Mar 19 23:21:54 2025 +0530
+
+    Merge pull request #1 from YashChandan21/Testing
+    
+    added testing 1
+
+[33mcommit 53ad9392450dc0a09bc9476e08d161b1e284cbcb[m
+Author: YashChandan21 <yashparaschandan4@gmail.com>
+Date:   Wed Mar 19 22:17:35 2025 +0530
+
+    added testing 1
+
+[33mcommit b823bb417ad730e0c339148641284e84daaa9728[m[33m ([m[1;31mupstream/main[m[33m, [m[1;31mupstream/Testing[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m
+Author: Gurwinder  Singh <39439605-gurwinx369@users.noreply.replit.com>
+Date:   Mon Mar 17 05:57:50 2025 +0000
+
+    Initial commit

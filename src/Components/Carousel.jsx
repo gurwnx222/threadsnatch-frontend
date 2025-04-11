@@ -32,13 +32,13 @@ const DEFAULT_ITEMS = [
 const DRAG_BUFFER = 0;
 const VELOCITY_THRESHOLD = 500;
 const GAP = 16;
-const SPRING_OPTIONS = { type: "spring", stiffness: 300, damping: 30 };
+const SPRING_OPTIONS = { type: "spring", stiffness: 100, damping: 25 };
 
 export default function Carousel({
   items = DEFAULT_ITEMS,
   baseWidth = 300,
   autoplay = false,
-  autoplayDelay = 3000,
+  autoplayDelay = 6000,
   pauseOnHover = false,
   loop = false,
   round = false,

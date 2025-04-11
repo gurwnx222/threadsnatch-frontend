@@ -67,7 +67,7 @@ const Home = () => {
             <Carousel
               baseWidth={670}
               autoplay={true}
-              autoplayDelay={3000}
+              autoplayDelay={10000}
               pauseOnHover={true}
               loop={true}
               round={false}

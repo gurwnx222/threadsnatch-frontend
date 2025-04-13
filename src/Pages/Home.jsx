@@ -92,9 +92,9 @@ const Home = () => {
             {/* Carousel container */}
             <div className="w-full max-w-2xl px-4 sm:px-0 mx-auto">
               <Carousel
-                baseWidth={670}
+                baseWidth={680}
                 autoplay={true}
-                autoplayDelay={3000}
+                autoplayDelay={10000}
                 pauseOnHover={true}
                 loop={true}
                 round={false}

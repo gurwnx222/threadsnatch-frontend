@@ -28,7 +28,7 @@ const Contact = () => {
                 href="mailto:threader.corp@gmail.com"
                 className="text-blue-400 hover:text-blue-300 transition-colors font-medium text-[16px] sm:ml-8"
               >
-                threader.corp@gmail.com
+                gurwinx369@gmail.com
               </a>
             </div>
 
@@ -41,7 +41,7 @@ const Contact = () => {
                 <span className="text-white text-lg">Twitter</span>
               </div>
               <a
-                href="https://twitter.com/GurwinderSingh"
+                href="https://x.com/gurwinx369?t=YkX6JUv2FqRhwNMuzeV3_A&s=09"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-400 hover:text-blue-300 transition-colors font-medium text-lg sm:ml-8"

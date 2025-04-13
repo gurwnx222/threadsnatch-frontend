@@ -34,7 +34,7 @@ const About = () => {
               framework, ensuring scalability and reliability without
               compromising performance.{" "}
               <a
-                href="https://twitter.com/"
+                href="https://x.com/gurwinx369?t=YkX6JUv2FqRhwNMuzeV3_A&s=09"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-400 hover:underline"

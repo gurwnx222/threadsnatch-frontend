@@ -230,7 +230,7 @@ export default function Carousel({
                     playsInline
                   />
                   {/* Semi-transparent overlay for better text visibility */}
-                  <div className="absolute inset-0 bg-black bg-opacity-30" />
+                  <div className="absolute inset-0 bg-black bg-opacity-25" />
                 </div>
               )}
 
@@ -242,10 +242,12 @@ export default function Carousel({
                   </span>
                 </div>
                 <div className="p-5 mt-auto">
-                  <div className="mb-1 font-black text-lg text-white">
+                  <div className="mt-5 md:mb-1 font-black text-lg text-white">
                     {item.title}
                   </div>
-                  <p className="text-sm text-white">{item.description}</p>
+                  <p className="hidden md:block md:text-sm md:text-white">
+                    {item.description}
+                  </p>
                 </div>
               </div>
             </motion.div>

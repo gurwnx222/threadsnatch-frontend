@@ -2,9 +2,13 @@ import { useEffect, useState, useRef } from "react";
 import { motion, useMotionValue, useTransform } from "framer-motion";
 // replace icons with your own if needed
 import { FiVideo, FiFileText, FiLayers } from "react-icons/fi";
-import fetchCrselVideo from "/fetch-crsel.mp4";
-import fetchVidVideo from "/fetch-vid.mp4";
-import fetchImgVideo from "/fetch-img.mp4";
+
+const fetchImgVideo =
+  "https://res.cloudinary.com/ddeqyelhv/video/upload/v1744542968/fetch-img_pfvqyz.mp4";
+const fetchVidVideo =
+  "https://res.cloudinary.com/ddeqyelhv/video/upload/v1744542967/fetch-vid_e0mdvq.mp4";
+const fetchCrselVideo =
+  "https://res.cloudinary.com/ddeqyelhv/video/upload/v1744542969/fetch-crsel_hsf7ox.mp4";
 const DEFAULT_ITEMS = [
   {
     title: "Fetch Image",

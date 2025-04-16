@@ -3,6 +3,7 @@ import Navbar from "../Components/Navbar";
 import Carousel from "../Components/Carousel";
 import Footer from "../Components/Footer";
 import { Zap, Plug, Shield, Target } from "lucide-react";
+import Pricing from "../Components/Pricing";
 
 const Home = () => {
   const apiLink =
@@ -104,11 +105,19 @@ const Home = () => {
           </div>
         </section>
 
+        
+        
+
         {/* Third section - features */}
         <section
           className="relative z-10 w-full bg-cover bg-center py-24 px-4"
           style={{ backgroundImage: "url('/BG-img1.jpg')" }}
         >
+
+          {/* Added Section - PRicing */}
+          <div className="text-white font-montserrat flex items-center justify-center text-3xl leading-snug font-medium">Supercharge Your Projects: <br /> Unlock the Ultimate Meta Threads API Plan Today!</div>
+          <Pricing />
+
           <div className="flex flex-col items-center gap-3 text-white">
             <h2 className="font-medium text-2xl sm:text-3xl text-center">
               Empower Your Journey

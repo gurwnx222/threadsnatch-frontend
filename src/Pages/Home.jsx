@@ -23,7 +23,7 @@ const Home = () => {
       </header>
 
       {/* Content wrapper - starts after navbar */}
-      <main className="relative z-10 w-full">
+      <main className="relative z-10 w-full" id="home">
         {/* Main Content - First screen */}
         <section className="flex flex-col items-center justify-center min-h-screen text-white text-center px-6 pt-16">
           {/* Title */}

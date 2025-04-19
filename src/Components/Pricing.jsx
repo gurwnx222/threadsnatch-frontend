@@ -1,4 +1,5 @@
 import React from 'react';
+import { API_LINK } from '../utils/contants';
 
 const plan = {
   title: "Pro",
@@ -28,12 +29,13 @@ const Pricing = () => {
         <p className="text-base mb-6 text-justify text-[#9C8D8D]">{plan.text}</p> 
 
 
-        <button
+        <a href={API_LINK}
+        target="__blank"><button
           className="px-4 py-2 rounded-xl text-xl bg-blue-600 text-white w-full mb-5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
           aria-label={`Get started with the ${plan.title} plan`}
-        >
-          Get Started
-        </button>
+        >Get Started
+          
+        </button></a>
 
         <ul className="space-y-2 text-left text-white">
           <div className="text-xl font-medium mb-2">What's Included:</div>

@@ -3,7 +3,7 @@ import { IoMdClose } from "react-icons/io";
 
 export default function SubscribeModal({ onClose }) {
   return (
-    <div className="fixed inset-0 bg-blend-screen bg-opacity-60 flex items-center justify-center z-50">
+    <div className="fixed inset-0 bg-gray-950 bg-opacity-70 flex items-center justify-center z-50">
       <div className="bg-[#2C2C2E] text-white rounded-2xl m-4 p-6 w-[400px] relative shadow-lg">
         {/* Close Button */}
         <button

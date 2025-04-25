@@ -1,5 +1,5 @@
 import React from "react";
-import { API_LINK } from "../utils/constants";
+import { API_LINK } from "../utils/contants";
 
 const plan = {
   title: "Pro",
@@ -29,7 +29,7 @@ const Pricing = () => {
         <p className="text-base mb-6 text-justify text-[#9C8D8D]">{plan.text}</p> 
 
 
-        <a href={API_LINK}
+        {/* <a href={API_LINK}
         target="__blank"
           className="px-4 py-2 rounded-xl text-xl bg-blue-600 text-white w-full mb-5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
           aria-label={`Get started with the ${plan.title} plan`}
@@ -44,10 +44,10 @@ const Pricing = () => {
         </p>
         <p className="text-base mb-6 text-justify text-[#9C8D8D]">
           {plan.text}
-        </p>
+        </p> */}
 
         <a
-          href="https://rapidapi.com/threadertech/api/threadsnatch-api/playground/apiendpoint_02a7614b-8fcd-41cf-bc91-5de42d5dc5c9"
+          href={API_LINK}
           target="__blank"
           className="px-4 py-2 rounded-xl text-xl bg-blue-600 text-white w-full mb-5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
           aria-label={`Get started with the ${plan.title} plan`}

@@ -1,9 +1,10 @@
 import React from "react";
 import { useState } from "react";
 import { FaPlus, FaPaperPlane } from "react-icons/fa";
-import { GoX } from "react-icons/go";
 import SubscribeModal from "../Components/SubscribeModal";
 import Navbar from "../Components/Navbar";
+import ImgFetching from "../Components/imgFetching";
+import { Tube } from "ogl";
 
 const ImageDownL = () => {
   const [credits, setCredits] = useState(3);
@@ -11,14 +12,29 @@ const ImageDownL = () => {
   const [showModal, setShowModal] = useState(false);
   const [isSubscribed, setIsSubscribed] = useState(false);
 
+  // for input fields
+  const [input1, setInput1] = useState("");
+  const [input2, setInput2] = useState("");
+
+  // for fetching image container showing
+  const [showContainer, setShowContainer] = useState(false);
+
+  const handleSubmit = () => {
+    setShowContainer(true);
+  };
+
   // for credits limits
   const handleFetchImage = () => {
+    setInput2(input1);
+
     if (credits > 0) {
       // fetch the image from API - GR add Backend
       setCredits((prev) => prev - 1);
     } else {
       // temperary
-      alert("You have no credits left. Please subscribe to get more credits.");
+      // alert("You have no credits left. Please subscribe to get more credits.");
+
+      setShowModal(true);
     }
   };
 
@@ -35,7 +51,7 @@ const ImageDownL = () => {
 
       {/* Content */}
       <div className="relative z-10 text-white top-80">
-        <div className="flex flex-col items-center justify-center text-center px-12">
+        <div className="flex flex-col items-center justify-center text-center px-12 z-10">
           <h2 className="text-3xl font-medium">Image Downloader</h2>
           <p className="text-[#FFFFFF99] mt-2 ">
             Fetch and Download Images from Meta Threads
@@ -43,15 +59,11 @@ const ImageDownL = () => {
         </div>
 
         {/* after clicking the submit button to fetch img -  code  */}
-
-        <div className="flex bg-[#2C2C2E] w-3/12 h-[47px] mx-auto items-center border rounded-full border-[#FFFFFF33]">
-          <input 
-            type="text"
-            placeholder=""
-            className="bg-transparent w-[85%] outline-none px-5" />
-        
-            <GoX size={35} className="cursor-pointer" />
-        </div>
+        {showContainer && (
+          <div className="absolute z-20 -top-32 left-0 right-0 mx-auto">
+            <ImgFetching input2={input2} />
+          </div>
+        )}
 
         {showModal && <SubscribeModal onClose={() => setShowModal(false)} />}
 
@@ -62,7 +74,7 @@ const ImageDownL = () => {
           </p>
 
           {/* Input Field is HEre */}
-          <div className="flex items-center bg-[#3A3A3C] text-white px-4 py-2 rounded-full w-full max-w-md">
+          <div className="flex items-center bg-[#3A3A3C] text-white px-4 py-2 rounded-full w-full max-w-md border  border-[#FFFFFF33]">
             {/* Plus Icon */}
             <button>
               <FaPlus className="mr-2 text-white" />
@@ -72,17 +84,23 @@ const ImageDownL = () => {
             <input
               type="text"
               placeholder="Paste Your Threads URL"
+              value={input1}
+              onChange={(e) => setInput1(e.target.value)}
               className="bg-transparent outline-none flex-1 placeholder-gray-400"
             />
 
             {/* Send Button */}
             <button
-              onClick={handleFetchImage}
+              onClick={() => {
+                handleFetchImage();
+                handleSubmit();
+              }}
               className="bg-blue-500 p-2 rounded-full hover:bg-blue-600 transition"
             >
               <FaPaperPlane className="text-white" />
             </button>
           </div>
+
           <div className="text-[#FFFFFFDE] text-xs mt-6">
             2025©ThreadSnatch.online
           </div>

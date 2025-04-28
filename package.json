@@ -26,8 +26,13 @@
   "dependencies": {
     "@vercel/analytics": "^1.5.0",
     "@vercel/speed-insights": "^1.2.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
     "framer-motion": "^12.6.3",
     "lucide-react": "^0.483.0",
+    "mongodb": "^6.16.0",
+    "mongoose": "^8.13.3",
     "ogl": "^1.0.11",
     "react-icons": "^5.5.0",
     "react-router-dom": "^7.4.0",

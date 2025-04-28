@@ -1,11 +1,12 @@
 import mongoose from "mongoose";
 
-// Define the schema
 const emailSchema = new mongoose.Schema({
   email: {
     type: String,
+    isVerified: true,
+    tokenExpiry: Date.now + 3600000,
     required: true,
-    unique: true,
+    unique: false,
     trim: true,
     lowercase: true,
   },
@@ -15,7 +16,6 @@ const emailSchema = new mongoose.Schema({
   },
 });
 
-// Create the model
 export const Email = mongoose.model("Email", emailSchema);
 
 export { emailSchema };

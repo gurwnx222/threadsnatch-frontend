@@ -1,4 +1,5 @@
 import React from "react";
+import { API_LINK } from "../utils/contants";
 
 const plan = {
   title: "Pro",
@@ -23,6 +24,18 @@ const Pricing = () => {
             Popular
           </span>
         </div>
+        <p className="text-2xl line-through text-[#9C8D8D] text-left">$13.99/mo</p>
+        <p className="text-3xl font-extrabold mb-6 text-left">{plan.price}/mo</p>
+        <p className="text-base mb-6 text-justify text-[#9C8D8D]">{plan.text}</p> 
+
+
+        {/* <a href={API_LINK}
+        target="__blank"
+          className="px-4 py-2 rounded-xl text-xl bg-blue-600 text-white w-full mb-5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+          aria-label={`Get started with the ${plan.title} plan`}
+        >Get Started
+        </a>
+=======
         <p className="text-2xl line-through text-[#9C8D8D] text-left">
           $13.99/mo
         </p>
@@ -31,10 +44,10 @@ const Pricing = () => {
         </p>
         <p className="text-base mb-6 text-justify text-[#9C8D8D]">
           {plan.text}
-        </p>
+        </p> */}
 
         <a
-          href="https://rapidapi.com/threadertech/api/threadsnatch-api/playground/apiendpoint_02a7614b-8fcd-41cf-bc91-5de42d5dc5c9"
+          href={API_LINK}
           target="__blank"
           className="px-4 py-2 rounded-xl text-xl bg-blue-600 text-white w-full mb-5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
           aria-label={`Get started with the ${plan.title} plan`}

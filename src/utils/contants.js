@@ -1,0 +1,2 @@
+export const API_LINK = "https://rapidapi.com/threadertech/api/threadsnatch-api/playground/apiendpoint_02a7614b-8fcd-41cf-bc91-5de42d5dc5c9";
+export const Docs_LINK = "https://docs.threadsnatch.online/";

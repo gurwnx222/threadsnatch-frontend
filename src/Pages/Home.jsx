@@ -4,11 +4,12 @@ import Carousel from "../Components/Carousel";
 import Footer from "../Components/Footer";
 import { Zap, Plug, Shield, Target } from "lucide-react";
 import Pricing from "../Components/Pricing";
+import { API_LINK, Docs_LINK } from "../utils/contants";
 
 const Home = () => {
-  const apiLink =
-    "https://rapidapi.com/threadertech/api/threadsnatch-api/playground/apiendpoint_02a7614b-8fcd-41cf-bc91-5de42d5dc5c9";
-  const docsLink = "https://docs.threadsnatch.online/";
+  // const apiLink =
+  //   "https://rapidapi.com/threadertech/api/threadsnatch-api/playground/apiendpoint_02a7614b-8fcd-41cf-bc91-5de42d5dc5c9";
+  // const docsLink = "https://docs.threadsnatch.online/";
   return (
     <div className="font-montserrat relative min-h-screen w-full overflow-x-hidden">
       {/* Background Image - moved to a lower z-index */}
@@ -47,14 +48,14 @@ const Home = () => {
           {/* Buttons */}
           <div className="flex items-center justify-center mt-10 sm:mt-16 gap-4 sm:gap-8">
             <a
-              href={apiLink}
+              href={API_LINK}
               target="__blank"
               className="bg-[linear-gradient(103.2deg,#4624C2_31.08%,#7F5BFF_92.12%)] hover:opacity-90 transition-all text-white py-3 px-6 rounded-xl text-lg"
             >
               Get API
             </a>
             <a
-              href={docsLink}
+              href={Docs_LINK}
               target="__blank"
               className="bg-white hover:bg-gray-300 text-black py-3 px-6 rounded-xl flex items-center gap-2 text-lg"
             >

@@ -9,7 +9,7 @@ const ImgFetching = ({input2}) => {
     setCloseModal(true);
   }
 
-  // closes the model when Click on cross Button  <igone this mesage only of git hub change purposes..>
+  // closes the model when Click on cross Button  <igone this mesage only of git hub change purpose.>
   if(closeModal){
     return null;
   }

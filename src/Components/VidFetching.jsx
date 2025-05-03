@@ -1,19 +1,23 @@
 import React, { useState } from "react";
 import { FiDownload } from "react-icons/fi";
 import { GoX } from "react-icons/go";
+<<<<<<< HEAD:src/Components/VidFetching.jsx
 const VidFetching = ({input2}) => {
 
-  const [closeModal, setCloseModal] = useState(false);
+=======
 
+
+
+const ImgFetching = ({input2}) => {
+>>>>>>> 7267c57 (changing readability):src/Components/imgFetching.jsx
+  const [closeModal, setCloseModal] = useState(false);
   const handleClose = () =>{
     setCloseModal(true);
   }
-
   // closes the model when Click on cross Button
   if(closeModal){
     return null;
   }
-
   return (
     <>
       <div className="flex w-full max-w-md text-white bg-[#2C2C2E] h-[47px] mx-auto border rounded-full border-[#FFFFFF33]">
@@ -51,4 +55,8 @@ const VidFetching = ({input2}) => {
   );
 };
 
+<<<<<<< HEAD:src/Components/VidFetching.jsx
 export default VidFetching;
+=======
+export default ImgFetching;
+>>>>>>> 7267c57 (changing readability):src/Components/imgFetching.jsx

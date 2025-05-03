@@ -8,6 +8,7 @@ import Home from "./Pages/Home";
 import Contact from "./Pages/Contact";
 import TNC from "./Pages/terms";
 import ImageSaver from "./Pages/ImageSaver";
+import VideoSaver from "./Pages/VideoSaver";
 
 export default function App() {
   return (
@@ -23,6 +24,7 @@ export default function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/terms" element={<TNC />} />
             <Route path="/image" element={<ImageSaver />} />
+            <Route path="/video" element={<VideoSaver />} />
           </Routes>
         </Router>
       </div>

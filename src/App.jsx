@@ -7,7 +7,7 @@ import About from "./Pages/About";
 import Home from "./Pages/Home";
 import Contact from "./Pages/Contact";
 import TNC from "./Pages/terms";
-import ImageDownL from "./Pages/ImageDownL";
+import ImageSaver from "./Pages/ImageSaver";
 
 export default function App() {
   return (
@@ -22,7 +22,7 @@ export default function App() {
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/terms" element={<TNC />} />
-            <Route path="/image" element={<ImageDownL />} />
+            <Route path="/image" element={<ImageSaver />} />
           </Routes>
         </Router>
       </div>

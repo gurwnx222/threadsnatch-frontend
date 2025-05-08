@@ -23,8 +23,8 @@ export default function App() {
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/terms" element={<TNC />} />
-            <Route path="/image" element={<ImageSaver />} />
             <Route path="/video" element={<VideoSaver />} />
+            <Route path="/image" element={<ImageSaver />} />
           </Routes>
         </Router>
       </div>

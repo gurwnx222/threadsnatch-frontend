@@ -1,21 +1,19 @@
 import React, { useState } from "react";
 import { FiDownload } from "react-icons/fi";
 import { GoX } from "react-icons/go";
-const ImgFetching = ({input2}) => {
 
+const ImgFetching = ({ input2, images }) => {
   const [closeModal, setCloseModal] = useState(false);
 
-  const handleClose = () =>{
+  const handleClose = () => {
     setCloseModal(true);
-  }
+  };
 
-  // closes the model when Click on cross Button
-  if(closeModal){
-    return null;
-  }
+  if (closeModal) return null;
 
   return (
     <>
+      {/* Input with close button */}
       <div className="flex w-full max-w-md text-white bg-[#2C2C2E] h-[47px] mx-auto border rounded-full border-[#FFFFFF33]">
         <input
           type="text"
@@ -23,29 +21,38 @@ const ImgFetching = ({input2}) => {
           readOnly
           className="bg-transparent w-[85%] outline-none px-5"
         />
-
-        <button onClick={handleClose} ><GoX size={35}  className="cursor-pointer" /></button>
+        <button onClick={handleClose} aria-label="Close modal">
+          <GoX size={35} className="cursor-pointer" />
+        </button>
       </div>
 
-      {/* Image fetching section */}
-      <div className="rounded-3xl border border-[#EBEBF5] bg-[#2C2C2E] max-w-md flex flex-col w-full p-3 mx-auto">
-        <div className="flex m-4">
-          <div className="flex flex-col ">
-            <p>Ghibli Archives (@ghibliarchives) on Threads</p>
-            <p className="text-[#FFFFFFCC]">Porco Rosso (1992)</p>
+      {/* Scrollable vertical image list */}
+      <div className="max-w-md mx-auto mt-4 h-[500px] overflow-y-auto space-y-6 pr-2">
+        {images.map((img, index) => (
+          <div
+            key={index}
+            className="rounded-3xl border border-[#EBEBF5] bg-[#2C2C2E] w-full p-4"
+          >
+            <div className="flex justify-between items-start mb-4">
+              <div>
+                <p>{img.title}</p>
+                <p className="text-[#FFFFFFCC]">{img.subtitle}</p>
+              </div>
+              <button
+                className="h-10 bg-blue-500 rounded-full p-2 text-white hover:bg-blue-600 transition"
+                aria-label="Download image"
+              >
+                <FiDownload className="w-5 h-5" />
+              </button>
+            </div>
+            <img
+              src={img.imageUrl}
+              alt={img.title}
+              className="rounded-lg w-full"
+              loading="lazy"
+            />
           </div>
-          <button className="ml-2  h-12 bg-blue-500 rounded-full p-3 text-white hover:bg-blue-600 transition">
-            <FiDownload className="w-5 h-5" />
-          </button>
-        </div>
-
-        <div className="px-6">
-          <img
-            src="sample_image.jpg"
-            alt="Image Loading"
-            className="rounded-lg "
-          />
-        </div>
+        ))}
       </div>
     </>
   );

@@ -9,6 +9,8 @@ import Contact from "./Pages/Contact";
 import TNC from "./Pages/terms";
 import ImageDownL from "./Pages/ImageDownL";
 
+import CarouselDownL from "./Pages/CarouselDownL";
+
 export default function App() {
   return (
     <div className="h-auto">
@@ -23,6 +25,7 @@ export default function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/terms" element={<TNC />} />
             <Route path="/image" element={<ImageDownL />} />
+            <Route path="/carousel" element={<CarouselDownL />} />
           </Routes>
         </Router>
       </div>

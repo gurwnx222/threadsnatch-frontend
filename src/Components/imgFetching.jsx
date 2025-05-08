@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { FiDownload } from "react-icons/fi";
 import { GoX } from "react-icons/go";
 
+<<<<<<< HEAD
 const ImgFetching = ({ input2, images }) => {
   const [closeModal, setCloseModal] = useState(false);
 
@@ -11,6 +12,19 @@ const ImgFetching = ({ input2, images }) => {
 
   if (closeModal) return null;
 
+=======
+
+
+const ImgFetching = ({input2}) => {
+  const [closeModal, setCloseModal] = useState(false);
+  const handleClose = () =>{
+    setCloseModal(true);
+  }
+  // closes the model when Click on cross Button
+  if(closeModal){
+    return null;
+  }
+>>>>>>> bdf0a406d70c9cc108cad50e96b930845e54d500
   return (
     <>
       {/* Input with close button */}

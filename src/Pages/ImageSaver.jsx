@@ -4,9 +4,10 @@ import { useEffect } from "react";
 import { FaPlus, FaPaperPlane } from "react-icons/fa";
 import SubscribeModal from "../Components/SubscribeModal";
 import Navbar from "../Components/Navbar";
-import ImgFetching from "../Components/imgFetching";
+import ImgFetching from "../Components/ImgFetching";
 import { Tube } from "ogl";
 
+<<<<<<< HEAD:src/Pages/ImageDownL.jsx
 const ImageDownL = () => {
   const [credits, setCredits] = useState(() => {
     // Load credits from localStorage or default to 3
@@ -19,6 +20,10 @@ const ImageDownL = () => {
     localStorage.setItem("userCredits", credits);
   }, [credits]);
 
+=======
+const ImageSaver = () => {
+  const [credits, setCredits] = useState(3);
+>>>>>>> bdf0a406d70c9cc108cad50e96b930845e54d500:src/Pages/ImageSaver.jsx
   // use this true of want to show pop up
   const [showModal, setShowModal] = useState(false);
   const [isSubscribed, setIsSubscribed] = useState(false);
@@ -54,7 +59,7 @@ const ImageDownL = () => {
       <div
         className="fixed top-0 left-0 w-full h-full bg-[#1D1D1E] bg-blend-overlay opacity-50 z-0"
         style={{
-          backgroundImage: "url('/bg-ImageDownl-removebg-preview.png')",
+          backgroundImage: "url('/bg-ImageSaver-removebg-preview.png')",
         }}
       ></div>
 
@@ -130,4 +135,4 @@ const ImageDownL = () => {
   );
 };
 
-export default ImageDownL;
+export default ImageSaver;

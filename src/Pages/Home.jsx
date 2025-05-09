@@ -25,21 +25,21 @@ const Home = () => {
         {/* Hero Section - Redesigned according to screenshot */}
         <section className="flex flex-col items-center justify-center min-h-screen text-white px-4 md:px-8 pt-16">
           {/* Main headline container */}
-          <div className="flex flex-col md:flex-row items-center justify-center w-full max-w-4xl mt-12 md:mt-20">
+          <div className="flex flex-col md:flex-row sm:items-center sm:justify-center w-full max-w-4xl mt-12 md:mt-20">
             {/* First headline */}
-            <div className="font-montserrat font-bold text-2xl md:text-3xl lg:text-4xl text-center md:text-right md:w-5/12">
+            <div className="font-montserrat font-bold text-2xl md:text-3xl md:text-left  lg:text-4xl text-center md:w-5/12">
               Developers & Marketers Tired of Meta Threads Data Blackouts?
             </div>
             
             {/* Plus icon - centered between headlines */}
-            <div className="flex items-center justify-center mx-4 my-4 md:my-0">
-              <div className="bg-white rounded-full p-2">
-                <Plus size={24} className="text-blue-600" />
+            <div className="flex items-center justify-center m-10 md:mx-20 md:my-20 md:my-0">
+              <div className="bg-white rounded-lg p-2">
+                <Plus size={18} className="text-blue-600" />
               </div>
             </div>
             
             {/* Second headline */}
-            <div className="font-montserrat font-bold text-2xl md:text-3xl lg:text-4xl text-center md:text-left md:w-5/12">
+            <div className="font-montserrat font-bold text-2xl md:text-3xl lg:text-4xl text-center md:text-right md:w-5/12">
               Our API Scrapes Threads and Downloads Carousels, Images & Videos
             </div>
           </div>

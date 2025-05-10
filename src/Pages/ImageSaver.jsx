@@ -1,9 +1,10 @@
 import React from "react";
 import { useState } from "react";
+import { useEffect } from "react";
 import { FaPlus, FaPaperPlane } from "react-icons/fa";
 import SubscribeModal from "../Components/SubscribeModal";
 import Navbar from "../Components/Navbar";
-import ImgFetching from "../Components/ImgFetching";
+import ImgFetching from "../Components/imgFetching";
 import { Tube } from "ogl";
 
 const ImageSaver = () => {
@@ -43,7 +44,7 @@ const ImageSaver = () => {
       <div
         className="fixed top-0 left-0 w-full h-full bg-[#1D1D1E] bg-blend-overlay opacity-50 z-0"
         style={{
-          backgroundImage: "url('/bg-ImageSaver-removebg-preview.png')",
+          backgroundImage: "url('/bg-ImageDownl-removebg-preview.png')",
         }}
       ></div>
 
@@ -61,7 +62,16 @@ const ImageSaver = () => {
         {/* after clicking the submit button to fetch img -  code  */}
         {showContainer && (
           <div className="absolute z-20 -top-32 left-0 right-0 mx-auto">
-            <ImgFetching input2={input2} />
+            <ImgFetching
+              input2={input2}
+              images={[
+                {
+                  title: "Ghibli Archives (@ghibliarchives)",
+                  subtitle: "Porco Rosso (1992)",
+                  imageUrl: "sample_image.jpg",
+                },
+              ]}
+            />
           </div>
         )}
 

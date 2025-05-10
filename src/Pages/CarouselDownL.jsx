@@ -1,13 +1,28 @@
-import React from "react";
-import { useState } from "react";
-import { FaPlus, FaPaperPlane } from "react-icons/fa";
-import SubscribeModal from "../Components/SubscribeModal";
-import Navbar from "../Components/Navbar";
-import ImgFetching from "../Components/imgFetching";
-import { Tube } from "ogl";
+import React, { useEffect, useState } from "react";
 
-const VideoSaver = () => {
-  const [credits, setCredits] = useState(3);
+import { FaPlus, FaPaperPlane } from "react-icons/fa";
+import Navbar from "../Components/Navbar";
+import SubscribeModal from "../Components/SubscribeModal";
+import ImgFetching from "../Components/imgFetching";
+
+const CarouselDownL = () => {
+  const images = [
+    { src: "/sample_image.jpg", alt: "One" },
+    { src: "/img2.jpg", alt: "Two" },
+    { src: "/img3.jpg", alt: "Three" },
+  ];
+
+  const [credits, setCredits] = useState(() => {
+    // load credits from local storage or default to 3
+    const savedCredits = localStorage.getItem("userCredits");
+    return savedCredits ? parseInt(savedCredits, 10) : 3;
+  });
+
+  useEffect(() => {
+    // save credits to local storage
+    localStorage.setItem("userCredits", credits);
+  }, [credits]);
+
   // use this true of want to show pop up
   const [showModal, setShowModal] = useState(false);
   const [isSubscribed, setIsSubscribed] = useState(false);
@@ -52,9 +67,9 @@ const VideoSaver = () => {
       {/* Content */}
       <div className="relative z-10 text-white top-80">
         <div className="flex flex-col items-center justify-center text-center px-12 z-10">
-          <h2 className="text-3xl font-medium">Video Downloader</h2>
+          <h2 className="text-3xl font-medium">Carousel Downloader</h2>
           <p className="text-[#FFFFFF99] mt-2 ">
-            Fetch and Download Videos from Meta Threads
+            Fetch and Download Carousel from Meta Threads
           </p>
         </div>
 
@@ -68,6 +83,16 @@ const VideoSaver = () => {
                   title: "Ghibli Archives (@ghibliarchives)",
                   subtitle: "Porco Rosso (1992)",
                   imageUrl: "sample_image.jpg",
+                },
+                {
+                  title: "Ghibli Archives (@ghibliarchives)",
+                  subtitle: "My Neighbor Totoro (1988)",
+                  imageUrl: "sample_image2.jpg",
+                },
+                {
+                  title: "Ghibli Archives (@ghibliarchives)",
+                  subtitle: "Spirited Away (2001)",
+                  imageUrl: "sample_image3.jpg",
                 },
               ]}
             />
@@ -119,4 +144,4 @@ const VideoSaver = () => {
   );
 };
 
-export default VideoSaver;
+export default CarouselDownL;

@@ -55,7 +55,7 @@ const Pricing = () => {
           Get Started
         </a>
 
-        <ul className="space-y-2 text-left text-white">
+        <ul className="space-y-2 text-left text-white mt-4 ">
           <div className="text-xl font-medium mb-2">What's Included:</div>
           {plan.features.map((feature, i) => (
             <li key={i} className="flex items-start text-base">

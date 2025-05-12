@@ -4,6 +4,8 @@ import { FaTwitter, FaEnvelope } from "react-icons/fa";
 
 const Contact = () => {
   return (
+    <>
+    <Navbar />
     <div className="font-montserrat h-screen relative">
       <div
         className="fixed top-0 left-0 w-full h-full bg-cover bg-center animate-moveBg"
@@ -14,7 +16,6 @@ const Contact = () => {
           <h1 className="text-3xl sm:text-4xl font-bold text-white mb-6 text-center">
             Get In Touch
           </h1>
-
           <div className="space-y-8">
             {/* Email Contact */}
             <div className="flex flex-col sm:flex-row items-center sm:justify-between p-4 bg-gray-900 bg-opacity-60 rounded-lg hover:bg-opacity-80 transition-all">
@@ -60,7 +61,9 @@ const Contact = () => {
         </div>
       </div>
     </div>
+    </>
   );
+ 
 };
 
 export default Contact;

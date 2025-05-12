@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { FiDownload } from "react-icons/fi";
 import { GoX } from "react-icons/go";
+
+
+
 const ImgFetching = ({input2}) => {
-
   const [closeModal, setCloseModal] = useState(false);
-
   const handleClose = () =>{
     setCloseModal(true);
   }
@@ -13,7 +14,6 @@ const ImgFetching = ({input2}) => {
   if(closeModal){
     return null;
   }
-
   return (
     <>
       <div className="flex w-full max-w-md text-white bg-[#2C2C2E] h-[47px] mx-auto border rounded-full border-[#FFFFFF33]">

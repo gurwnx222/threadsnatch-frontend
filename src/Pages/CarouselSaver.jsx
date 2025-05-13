@@ -3,9 +3,9 @@ import React, { useEffect, useState } from "react";
 import { FaPlus, FaPaperPlane } from "react-icons/fa";
 import Navbar from "../Components/Navbar";
 import SubscribeModal from "../Components/SubscribeModal";
-import ImgFetching from "../Components/imgFetching";
+import CarouselFetching from "../Components/Carousel";
 
-const CarouselDownL = () => {
+const CarouselSaver = () => {
   const images = [
     { src: "/sample_image.jpg", alt: "One" },
     { src: "/img2.jpg", alt: "Two" },
@@ -144,4 +144,4 @@ const CarouselDownL = () => {
   );
 };
 
-export default CarouselDownL;
+export default CarouselSaver;

@@ -6,7 +6,6 @@ import Navbar from "../Components/Navbar";
 import VidFetching from "../Components/VidFetching";
 
 const VideoSaver = () => {
-const VideoSaver = () => {
   const [credits, setCredits] = useState(3);
   // use this true of want to show pop up
   const [showModal, setShowModal] = useState(false);

@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { FaPlus, FaPaperPlane } from "react-icons/fa";
 import SubscribeModal from "../Components/SubscribeModal";
 import Navbar from "../Components/Navbar";
-import ImgFetching from "../Components/imgFetching";
+import ImgFetching from "../Components/ImgFetching";
 import { Tube } from "ogl";
 
 const ImageSaver = () => {

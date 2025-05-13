@@ -9,6 +9,7 @@ import Contact from "./Pages/Contact";
 import TNC from "./Pages/terms";
 import ImageSaver from "./Pages/ImageSaver";
 import VideoSaver from "./Pages/VideoSaver";
+import CarouselDownL from "./Pages/CarouselDownL";
 
 export default function App() {
   return (
@@ -23,8 +24,10 @@ export default function App() {
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/terms" element={<TNC />} />
-            <Route path="/video" element={<VideoSaver />} />
+            {/* <Route path="/image" element={<ImageDownL />} /> */}
+            <Route path="/carousel" element={<CarouselDownL />} />
             <Route path="/image" element={<ImageSaver />} />
+            <Route path="/video" element={<VideoSaver />} />
           </Routes>
         </Router>
       </div>

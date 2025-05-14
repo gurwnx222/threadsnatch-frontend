@@ -106,17 +106,16 @@ const Home = () => {
           </div>
         </section>
 
-        
-        
-
         {/* Third section - features */}
         <section
           className="relative z-10 w-full bg-cover bg-center py-24 px-4"
           style={{ backgroundImage: "url('/BG-img1.jpg')" }}
         >
-
           {/* Added Section - PRicing */}
-          <div className="text-white font-montserrat flex items-center justify-center text-3xl leading-snug font-medium">Supercharge Your Projects: <br /> Unlock the Ultimate Meta Threads API Plan Today!</div>
+          <div className="text-white font-montserrat flex items-center justify-center text-3xl leading-snug font-medium">
+            Supercharge Your Projects: <br /> Unlock the Ultimate Meta Threads
+            API Plan Today!
+          </div>
           <Pricing />
 
           <div className="flex flex-col items-center gap-3 text-white">

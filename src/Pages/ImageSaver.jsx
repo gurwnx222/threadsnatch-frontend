@@ -3,7 +3,7 @@ import { useState } from "react";
 import { FaPlus, FaPaperPlane } from "react-icons/fa";
 import SubscribeModal from "../Components/SubscribeModal";
 import Navbar from "../Components/Navbar";
-import ImgFetching from "../Components/ImgFetching";
+import imgFetching from "../Components/imgFetching";
 import { Tube } from "ogl";
 
 const ImageSaver = () => {
@@ -55,7 +55,7 @@ const ImageSaver = () => {
           <h2 className="text-3xl font-medium">Image Downloader</h2>
           <p className="text-[#FFFFFF99] mt-2 ">
             Fetch and Download Images from Meta Threads
-          </p>
+          </p>?
         </div>
 
         {/* after clicking the submit button to fetch img -  code  */}

@@ -1,12 +1,23 @@
-import React from "react";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaPaperPlane } from "react-icons/fa";
-import SubscribeModal from "../Components/SubscribeModal";
 import Navbar from "../Components/Navbar";
+import SubscribeModal from "../Components/SubscribeModal";
 import VidFetching from "../Components/VidFetching";
 
 const VideoSaver = () => {
-  const [credits, setCredits] = useState(3);
+  const images = [{ src: "/sample_image.jpg", alt: "One" }];
+
+  const [credits, setCredits] = useState(() => {
+    // load credits from local storage or default to 3
+    const savedCredits = localStorage.getItem("userCredits");
+    return savedCredits ? parseInt(savedCredits, 10) : 3;
+  });
+
+  useEffect(() => {
+    // save credits to local storage
+    localStorage.setItem("userCredits", credits);
+  }, [credits]);
+
   // use this true of want to show pop up
   const [showModal, setShowModal] = useState(false);
   const [isSubscribed, setIsSubscribed] = useState(false);
@@ -18,69 +29,77 @@ const VideoSaver = () => {
   // for fetching image container showing
   const [showContainer, setShowContainer] = useState(false);
 
+  const handleSubmit = () => {
+    setShowContainer(true);
+    handleFetchVideo();
+  };
+
   // for credits limits
-  const handleFetchImage = () => {
+  const handleFetchVideo = () => {
     setInput2(input1);
+
     if (credits > 0) {
       // fetch the image from API - GR add Backend
       setCredits((prev) => prev - 1);
     } else {
       // temperary
       // alert("You have no credits left. Please subscribe to get more credits.");
-
       setShowModal(true);
     }
   };
-  const handleSubmit = () => {
-    setShowContainer(true);
-    handleFetchImage();
-  };
 
   return (
-    <div className="font-montserrat min-h-screen bg-[#1D1D1E] relative">
+    <div className="font-montserrat min-h-screen bg-[#1D1D1E] relative flex flex-col">
+      {/* Background overlay with confetti */}
       <div
         className="fixed top-0 left-0 w-full h-full bg-[#1D1D1E] bg-blend-overlay opacity-50 z-0"
         style={{
-          backgroundImage: `url('/background-confetti.png')`,
-          backgroundPosition: 'center',
+          backgroundImage: "url('/background-confetti.png')",
         }}
       ></div>
 
       <Navbar />
 
-      {/* Content */}
-      <div className="relative z-10 text-white top-80">
-        <div className="flex flex-col items-center justify-center text-center px-12 z-10">
+      {/* Main content container with better positioning */}
+      <div className="relative z-10 text-white flex-1 flex flex-col items-center justify-center mt-12">
+        <div className="flex flex-col items-center justify-center text-center px-12 z-10 mb-12">
           <h2 className="text-3xl font-medium">Video Downloader</h2>
-          <h2 className="text-3xl font-medium">Video Downloader</h2>
-          <p className="text-[#FFFFFF99] mt-2 ">
-            Fetch and Download Videos from Meta Threads
-            Fetch and Download Videos from Meta Threads
+          <p className="text-[#FFFFFF99] mt-2">
+            Fetch and Download High Quality Available Videos in from Meta
+            Threads
           </p>
         </div>
 
-        {/* after clicking the submit button to fetch img -  code  */}
+        {/* Image fetching container with adjusted positioning */}
         {showContainer && (
-          <div className="absolute z-20 -top-32 left-0 right-0 mx-auto">
-            <VidFetching input2={input2} />
+          <div className="z-20 w-full mx-auto mb-8">
+            <VidFetching
+              input2={input2}
+              images={[
+                {
+                  title: "Ghibli Archives (@ghibliarchives)",
+                  subtitle: "Porco Rosso (1992)",
+                  imageUrl: "sample_image.jpg",
+                },
+              ]}
+            />
           </div>
         )}
 
         {showModal && <SubscribeModal onClose={() => setShowModal(false)} />}
 
-        {/* Bottom content */}
-        <div className="relative flex flex-col items-center justify-center lg:top-64 top-72 gap-1">
-          <p className="relative lg:right-28 right-24">
+        {/* Input field and credits section with better positioning */}
+        <div className="flex flex-col items-center justify-center w-full px-4 mb-3">
+          <p className="mr-60 mt-9 mb-2 text-sm text-[#FFFFFF99]">
             {credits} - download remains
           </p>
 
-          {/* Input Field is HEre */}
-          <div className="flex items-center bg-[#3A3A3C] text-white px-4 py-2 rounded-full w-full max-w-md border  border-[#FFFFFF33]">
-
+          {/* Input Field with dark background */}
+          <div className="flex items-center bg-[#3A3A3C] text-white px-4 py-2 rounded-full w-full max-w-md border border-[#FFFFFF33]">
             {/* Input Field */}
             <input
               type="text"
-              placeholder="Paste Your Video Threads URL"
+              placeholder="Paste Your Threads URL"
               value={input1}
               onChange={(e) => setInput1(e.target.value)}
               className="bg-transparent outline-none flex-1 placeholder-gray-400"
@@ -96,10 +115,11 @@ const VideoSaver = () => {
               <FaPaperPlane className="text-white" />
             </button>
           </div>
+        </div>
 
-          <div className="text-[#FFFFFFDE] text-xs mt-6">
-            2025©ThreadSnatch.online
-          </div>
+        {/* Copyright text at bottom with fixed positioning */}
+        <div className="text-[#FFFFFFDE] text-xs mb-6">
+          2025©ThreadSnatch.online
         </div>
       </div>
     </div>

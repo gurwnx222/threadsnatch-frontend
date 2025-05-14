@@ -2,16 +2,14 @@ import React, { useState } from "react";
 import { FiDownload } from "react-icons/fi";
 import { GoX } from "react-icons/go";
 
-
-
-const ImgFetching = ({input2}) => {
+const ImgFetching = ({ input2 }) => {
   const [closeModal, setCloseModal] = useState(false);
-  const handleClose = () =>{
+  const handleClose = () => {
     setCloseModal(true);
-  }
+  };
 
   // closes the model when Click on cross Button  <igone this mesage only of git hub change purpose.>
-  if(closeModal){
+  if (closeModal) {
     return null;
   }
   return (
@@ -24,7 +22,9 @@ const ImgFetching = ({input2}) => {
           className="bg-transparent w-[85%] outline-none px-5"
         />
 
-        <button onClick={handleClose} ><GoX size={35}  className="cursor-pointer" /></button>
+        <button onClick={handleClose}>
+          <GoX size={35} className="cursor-pointer" />
+        </button>
       </div>
 
       {/* Image fetching section */}

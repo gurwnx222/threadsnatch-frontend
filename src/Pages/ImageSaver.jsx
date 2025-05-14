@@ -1,14 +1,21 @@
-import React from "react";
-import { useState } from "react";
-import { useEffect } from "react";
-import { FaPlus, FaPaperPlane } from "react-icons/fa";
-import SubscribeModal from "../Components/SubscribeModal";
+import React, { useEffect, useState } from "react";
+import { FaPaperPlane } from "react-icons/fa";
 import Navbar from "../Components/Navbar";
+import SubscribeModal from "../Components/SubscribeModal";
 import ImgFetching from "../Components/ImgFetching";
-import { Tube } from "ogl";
 
 const ImageSaver = () => {
-  const [credits, setCredits] = useState(3);
+  const [credits, setCredits] = useState(() => {
+    // load credits from local storage or default to 3
+    const savedCredits = localStorage.getItem("userCredits");
+    return savedCredits ? parseInt(savedCredits, 10) : 3;
+  });
+
+  useEffect(() => {
+    // save credits to local storage
+    localStorage.setItem("userCredits", credits);
+  }, [credits]);
+
   // use this true of want to show pop up
   const [showModal, setShowModal] = useState(false);
   const [isSubscribed, setIsSubscribed] = useState(false);
@@ -20,6 +27,11 @@ const ImageSaver = () => {
   // for fetching image container showing
   const [showContainer, setShowContainer] = useState(false);
 
+  const handleSubmit = () => {
+    setShowContainer(true);
+    handleFetchImage();
+  };
+
   // for credits limits
   const handleFetchImage = () => {
     setInput2(input1);
@@ -30,63 +42,48 @@ const ImageSaver = () => {
     } else {
       // temperary
       // alert("You have no credits left. Please subscribe to get more credits.");
-
       setShowModal(true);
     }
   };
-  const handleSubmit = () => {
-    handleFetchImage();
-    setShowContainer(true);
-  };
 
   return (
-    <div className="font-montserrat min-h-screen bg-[#1D1D1E] relative">
+    <div className="font-montserrat min-h-screen bg-[#1D1D1E] relative flex flex-col">
+      {/* Background overlay with confetti */}
       <div
         className="fixed top-0 left-0 w-full h-full bg-[#1D1D1E] bg-blend-overlay opacity-50 z-0"
         style={{
-          backgroundImage: `url('/background-confetti.png')`,
-          backgroundPosition: 'center',
+          backgroundImage: "url('/background-confetti.png')",
         }}
       ></div>
 
       <Navbar />
 
-      {/* Content */}
-      <div className="relative z-10 text-white top-80">
-        <div className="flex flex-col items-center justify-center text-center px-12 z-10">
+      {/* Main content container with better positioning */}
+      <div className="relative z-10 text-white flex-1 flex flex-col items-center justify-center mt-12">
+        <div className="flex flex-col items-center justify-center text-center px-12 z-10 mb-12">
           <h2 className="text-3xl font-medium">Image Downloader</h2>
-          <p className="text-[#FFFFFF99] mt-2 ">
-            Fetch and Download Images from Meta Threads
+          <p className="text-[#FFFFFF99] mt-2">
+            Fetch and Download HD Images in 2 Clicks from Meta Threads
           </p>
         </div>
 
-        {/* after clicking the submit button to fetch img -  code  */}
+        {/* Image fetching container with adjusted positioning */}
         {showContainer && (
-          <div className="absolute z-20 -top-32 left-0 right-0 mx-auto">
-            <ImgFetching
-              input2={input2}
-              images={[
-                {
-                  title: "Ghibli Archives (@ghibliarchives)",
-                  subtitle: "Porco Rosso (1992)",
-                  imageUrl: "sample_image.jpg",
-                },
-              ]}
-            />
+          <div className="z-20 w-full mx-auto mb-8">
+            <ImgFetching input2={input2} />
           </div>
         )}
 
         {showModal && <SubscribeModal onClose={() => setShowModal(false)} />}
 
-        {/* Bottom content */}
-        <div className="relative flex flex-col items-center justify-center lg:top-64 top-72 gap-1">
-          <p className="relative lg:right-28 right-24">
+        {/* Input field and credits section with better positioning */}
+        <div className="flex flex-col items-center justify-center w-full px-4 mb-3">
+          <p className="mr-60 mt-9 mb-2 text-sm text-[#FFFFFF99]">
             {credits} - download remains
           </p>
 
-          {/* Input Field is Here */}
-          <div className="flex items-center bg-[#3A3A3C] text-white px-4 py-2 rounded-full w-full max-w-md border  border-[#FFFFFF33]">
-
+          {/* Input Field with dark background */}
+          <div className="flex items-center bg-[#3A3A3C] text-white px-4 py-2 rounded-full w-full max-w-md border border-[#FFFFFF33]">
             {/* Input Field */}
             <input
               type="text"
@@ -106,10 +103,11 @@ const ImageSaver = () => {
               <FaPaperPlane className="text-white" />
             </button>
           </div>
+        </div>
 
-          <div className="text-[#FFFFFFDE] text-xs mt-6">
-            2025©ThreadSnatch.online
-          </div>
+        {/* Copyright text at bottom with fixed positioning */}
+        <div className="text-[#FFFFFFDE] text-xs mb-6">
+          2025©ThreadSnatch.online
         </div>
       </div>
     </div>

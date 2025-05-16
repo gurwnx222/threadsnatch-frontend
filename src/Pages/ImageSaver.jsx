@@ -1,9 +1,9 @@
 import React from "react";
 import { useState } from "react";
-import { FaPlus, FaPaperPlane } from "react-icons/fa";
+import { FaPaperPlane } from "react-icons/fa";
 import SubscribeModal from "../Components/SubscribeModal";
 import Navbar from "../Components/Navbar";
-import imgFetching from "../Components/imgFetching";
+import ImgFetching from "../Components/ImgFetching";
 import { Tube } from "ogl";
 
 const ImageSaver = () => {
@@ -19,10 +19,6 @@ const ImageSaver = () => {
   // for fetching image container showing
   const [showContainer, setShowContainer] = useState(false);
 
-  const handleSubmit = () => {
-    setShowContainer(true);
-  };
-
   // for credits limits
   const handleFetchImage = () => {
     setInput2(input1);
@@ -37,13 +33,18 @@ const ImageSaver = () => {
       setShowModal(true);
     }
   };
+  const handleSubmit = () => {
+    handleFetchImage();
+    setShowContainer(true);
+  };
 
   return (
     <div className="font-montserrat min-h-screen bg-[#1D1D1E] relative">
       <div
         className="fixed top-0 left-0 w-full h-full bg-[#1D1D1E] bg-blend-overlay opacity-50 z-0"
         style={{
-          backgroundImage: "url('/bg-ImageSaver-removebg-preview.png')",
+          backgroundImage: `url('/background-confetti.png')`,
+          backgroundPosition: "center",
         }}
       ></div>
 
@@ -55,7 +56,8 @@ const ImageSaver = () => {
           <h2 className="text-3xl font-medium">Image Downloader</h2>
           <p className="text-[#FFFFFF99] mt-2 ">
             Fetch and Download Images from Meta Threads
-          </p>?
+          </p>
+          ?
         </div>
 
         {/* after clicking the submit button to fetch img -  code  */}
@@ -68,18 +70,13 @@ const ImageSaver = () => {
         {showModal && <SubscribeModal onClose={() => setShowModal(false)} />}
 
         {/* Bottom content */}
-        <div className="relative flex flex-col items-center justify-center lg:top-64 top-72 gap-1">
+        <div className="relative flex flex-col items-center justify-center lg:top-64 top-56 gap-1">
           <p className="relative lg:right-28 right-24">
             {credits} - download remains
           </p>
 
-          {/* Input Field is HEre */}
+          {/* Input Field is Here */}
           <div className="flex items-center bg-[#3A3A3C] text-white px-4 py-2 rounded-full w-full max-w-md border  border-[#FFFFFF33]">
-            {/* Plus Icon */}
-            <button>
-              <FaPlus className="mr-2 text-white" />
-            </button>
-
             {/* Input Field */}
             <input
               type="text"
@@ -92,7 +89,6 @@ const ImageSaver = () => {
             {/* Send Button */}
             <button
               onClick={() => {
-                handleFetchImage();
                 handleSubmit();
               }}
               className="bg-blue-500 p-2 rounded-full hover:bg-blue-600 transition"
@@ -101,7 +97,7 @@ const ImageSaver = () => {
             </button>
           </div>
 
-          <div className="text-[#FFFFFFDE] text-xs mt-6">
+          <div className="text-[#FFFFFFDE] text-xs mt-5">
             2025©ThreadSnatch.online
           </div>
         </div>

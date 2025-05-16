@@ -2,14 +2,11 @@ import React, { useState, useEffect } from "react";
 import Navbar from "../Components/Navbar";
 import Carousel from "../Components/Carousel";
 import Footer from "../Components/Footer";
-import { Zap, Plug, Shield, Target } from "lucide-react";
+import { Zap, Plug, Shield, Target, Plus } from "lucide-react";
 import Pricing from "../Components/Pricing";
 import { API_LINK, Docs_LINK } from "../utils/contants";
 
 const Home = () => {
-  // const apiLink =
-  //   "https://rapidapi.com/threadertech/api/threadsnatch-api/playground/apiendpoint_02a7614b-8fcd-41cf-bc91-5de42d5dc5c9";
-  // const docsLink = "https://docs.threadsnatch.online/";
   return (
     <div className="font-montserrat relative min-h-screen w-full overflow-x-hidden">
       {/* Background Image - moved to a lower z-index */}
@@ -25,45 +22,52 @@ const Home = () => {
 
       {/* Content wrapper - starts after navbar */}
       <main className="relative z-10 w-full" id="home">
-        {/* Main Content - First screen */}
-        <section className="flex flex-col items-center justify-center min-h-screen text-white text-center px-6 pt-16">
-          {/* Title */}
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight mt-10 lg:mt-36 w-full max-w-2xl">
-            Snatch Every{" "}
-            <span className="bg-[linear-gradient(94.89deg,#62CFF4_58.98%,#2C67F2_83.06%)] text-transparent bg-clip-text">
-              Detail
-            </span>
-            <div>From Threads</div>
-          </h1>
-
-          {/* Subtitle */}
-          <p className="text-lg sm:text-xl mt-4 sm:mt-6 w-full max-w-2xl leading-relaxed">
-            Instantly extract videos, images, and carousels{" "}
-            <br className="hidden sm:block" />
-            with our API—fueling your app with real-time{" "}
-            <br className="hidden sm:block" />
-            insights and a competitive edge.
-          </p>
-
-          {/* Buttons */}
-          <div className="flex items-center justify-center mt-10 sm:mt-16 gap-4 sm:gap-8">
+        {/* Hero Section - Redesigned according to screenshot */}
+        <section className="flex flex-col items-center justify-center min-h-screen text-white px-4 md:px-8 pt-16">
+          {/* Main headline container */}
+          <div className="flex flex-col md:flex-row sm:items-center sm:justify-center w-full max-w-4xl mt-12 md:mt-20">
+            {/* First headline */}
+            <div className="font-montserrat font-bold text-2xl md:text-3xl md:text-left  lg:text-4xl text-center md:w-5/12">
+              Developers & Marketers Tired of Meta Threads Data Blackouts?
+            </div>
+            
+            {/* Plus icon - centered between headlines */}
+            <div className="flex items-center justify-center m-10 md:mx-20 md:my-20 md:my-0">
+              <div className="bg-white rounded-lg p-2">
+                <Plus size={18} className="text-blue-600" />
+              </div>
+            </div>
+            
+            {/* Second headline */}
+            <div className="font-montserrat font-bold text-2xl md:text-3xl lg:text-4xl text-center md:text-right md:w-5/12">
+              Our API Scrapes Threads and Downloads Carousels, Images & Videos
+            </div>
+          </div>
+          
+          {/* Subheadline - positioned on left with proper margin */}
+          <div className="mt-8 md:mt-12 w-full max-w-4xl px-4 md:px-8">
+            <p className="text-base md:text-lg leading-relaxed text-left md:ml-8">
+              Finally, a 'Set-and-Forget' Scraper + Downloader for Teams Who Want 100% Meta Threads Data & Never Waste Time Reverse-Engineering APIs Again
+            </p>
+          </div>
+          
+          {/* CTA Button - Centered with proper gradient */}
+          <div className="flex justify-center w-full mt-8 md:mt-12">
             <a
               href={API_LINK}
-              target="__blank"
-              className="bg-[linear-gradient(103.2deg,#4624C2_31.08%,#7F5BFF_92.12%)] hover:opacity-90 transition-all text-white py-3 px-6 rounded-xl text-lg"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-[247px] h-[37px] flex items-center justify-center
+                bg-gradient-to-r from-[#4624C2] via-[#6642E0] to-[#7F5BFF] text-white font-medium rounded-[10px]
+                shadow-[0px_4px_4px_rgba(0,0,0,0.25),inset_3px_1px_15px_rgba(255,255,255,0.5),inset_0px_-3px_10px_rgba(0,0,0,0.37)]
+                hover:opacity-90 transition-all"
             >
               Get API
             </a>
-            <a
-              href={Docs_LINK}
-              target="__blank"
-              className="bg-white hover:bg-gray-300 text-black py-3 px-6 rounded-xl flex items-center gap-2 text-lg"
-            >
-              <img src="/Vector.svg" alt="Docs Icon" className="w-5 h-5" /> Docs
-            </a>
           </div>
+          
           {/* Animated scroll indicator */}
-          <div className="flex flex-col items-center text-white relative top-10 animate-pulse">
+          <div className="flex flex-col items-center text-white mt-24 md:mt-28 animate-pulse">
             <span className="text-sm mb-2">&#123; scroll &#125;</span>
             <svg
               width="24"
@@ -111,10 +115,9 @@ const Home = () => {
           className="relative z-10 w-full bg-cover bg-center py-24 px-4"
           style={{ backgroundImage: "url('/BG-img1.jpg')" }}
         >
-          {/* Added Section - PRicing */}
+          {/* Added Section - Pricing */}
           <div className="text-white font-montserrat flex items-center justify-center text-3xl leading-snug font-medium">
-            Supercharge Your Projects: <br /> Unlock the Ultimate Meta Threads
-            API Plan Today!
+            Supercharge Your Projects: <br /> Unlock the Ultimate Meta Threads API Plan Today!
           </div>
           <Pricing />
 

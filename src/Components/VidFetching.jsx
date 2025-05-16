@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import { FiDownload } from "react-icons/fi";
 import { GoX } from "react-icons/go";
+const VidFetching = ({input2}) => {
 
-
-
-const ImgFetching = ({input2}) => {
   const [closeModal, setCloseModal] = useState(false);
   const handleClose = () =>{
     setCloseModal(true);
@@ -50,4 +48,4 @@ const ImgFetching = ({input2}) => {
   );
 };
 
-export default ImgFetching;
+export default VidFetching;

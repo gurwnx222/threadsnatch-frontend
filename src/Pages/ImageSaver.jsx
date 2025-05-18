@@ -45,10 +45,6 @@ const ImageSaver = () => {
       setShowModal(true);
     }
   };
-  const handleSubmit = () => {
-    handleFetchImage();
-    setShowContainer(true);
-  };
 
   return (
     <div className="font-montserrat min-h-screen bg-[#1D1D1E] relative flex flex-col">
@@ -70,7 +66,6 @@ const ImageSaver = () => {
           <p className="text-[#FFFFFF99] mt-2">
             Fetch and Download HD Images in 2 Clicks from Meta Threads
           </p>
-          ?
         </div>
 
         {/* Image fetching container with adjusted positioning */}

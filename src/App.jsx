@@ -8,6 +8,7 @@ import Home from "./Pages/Home";
 import Contact from "./Pages/Contact";
 import TNC from "./Pages/terms";
 import ImageSaver from "./Pages/ImageSaver";
+import HomePage from "./Pages/HomePage";
 import VideoSaver from "./Pages/VideoSaver";
 import CarouselSaver from "./Pages/CarouselSaver";
 
@@ -25,8 +26,9 @@ export default function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/terms" element={<TNC />} />
             <Route path="/carousel" element={<CarouselSaver />} />
-            <Route path="/image" element={<ImageSaver />} />
             <Route path="/video" element={<VideoSaver />} />
+            <Route path="/image" element={<ImageSaver />} />
+            <Route path="/newHome" element={<HomePage />} />
           </Routes>
         </Router>
       </div>

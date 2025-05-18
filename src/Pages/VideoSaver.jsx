@@ -29,15 +29,9 @@ const VideoSaver = () => {
   // for fetching image container showing
   const [showContainer, setShowContainer] = useState(false);
 
-  const handleSubmit = () => {
-    setShowContainer(true);
-    handleFetchVideo();
-  };
-
   // for credits limits
   const handleFetchVideo = () => {
     setInput2(input1);
-
     if (credits > 0) {
       // fetch the image from API - GR add Backend
       setCredits((prev) => prev - 1);
@@ -46,6 +40,10 @@ const VideoSaver = () => {
       // alert("You have no credits left. Please subscribe to get more credits.");
       setShowModal(true);
     }
+  };
+  const handleSubmit = () => {
+    setShowContainer(true);
+    handleFetchVideo();
   };
 
   return (
@@ -99,7 +97,7 @@ const VideoSaver = () => {
             {/* Input Field */}
             <input
               type="text"
-              placeholder="Paste Your Threads URL"
+              placeholder="Paste Your Video Threads URL"
               value={input1}
               onChange={(e) => setInput1(e.target.value)}
               className="bg-transparent outline-none flex-1 placeholder-gray-400"

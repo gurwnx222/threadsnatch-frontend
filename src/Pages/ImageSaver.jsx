@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaPaperPlane } from "react-icons/fa";
 import Navbar from "../Components/Navbar";
 // import SubscribeModal from "../Components/SubscribeModal";
@@ -29,13 +29,65 @@ const ImageSaver = () => {
   // for input fields
   const [input1, setInput1] = useState("");
   const [input2, setInput2] = useState("");
-
   // for fetching image container showing
   const [showContainer, setShowContainer] = useState(false);
+  // for transition effect
+  const [containerVisible, setContainerVisible] = useState(false);
+  // for error handling
+  const [invalidErrorURL, setInvalidErrorURL] = useState("");
+  // for loading state
+  const [isLoading, setIsLoading] = useState(false);
+
+  // Effect to handle smooth transition
+  useEffect(() => {
+    let timeoutId;
+    if (showContainer) {
+      // Small delay before showing the container with opacity transition
+      timeoutId = setTimeout(() => {
+        setContainerVisible(true);
+      }, 2500);
+    } else {
+      setContainerVisible(false);
+    }
+
+    return () => {
+      if (timeoutId) clearTimeout(timeoutId);
+    };
+  }, [showContainer]);
+
+  const validateThreadsUrl = (url) => {
+    // Basic validation - checks if URL is from threads.com
+    return url && url.includes("threads.com");
+  };
 
   const handleSubmit = () => {
-    setShowContainer(true);
-    handleFetchImage();
+    // Reset error message
+    setInvalidErrorURL("");
+
+    if (input1 && validateThreadsUrl(input1)) {
+      setIsLoading(true);
+      setInput2(input1);
+      // First hide container if it was visible before
+      if (showContainer) {
+        setShowContainer(false);
+        setTimeout(() => {
+          setShowContainer(true);
+        }, 2500); // Wait for fade out before showing new content
+      } else {
+        setShowContainer(true);
+      }
+    } else {
+      setInvalidErrorURL(
+        "Please Enter a Valid URL, which should be from meta threads Image Post."
+      );
+      setShowContainer(false);
+    }
+  };
+
+  // This function can be passed to ImgFetching to signal when loading is complete
+  const handleImageFetchComplete = (success) => {
+    setIsLoading(false);
+    // You could also handle failed image fetches here if needed
   };
 
   return (
@@ -60,12 +112,17 @@ const ImageSaver = () => {
           </p>
         </div>
 
-        {/* Image fetching container with adjusted positioning */}
-        {showContainer && (
-          <div className="z-20 w-full mx-auto mb-8">
-            <ImgFetching input2={input2} />
-          </div>
-        )}
+        {/* Image fetching container with transition */}
+        <div
+          className={`z-20 w-full mx-auto mb-8 transition-opacity duration-500 ease-in-out ${
+            containerVisible ? "opacity-100" : "opacity-0"
+          } ${showContainer ? "block" : "hidden"}`}
+        >
+          <ImgFetching
+            input2={input2}
+            onFetchComplete={handleImageFetchComplete}
+          />
+        </div>
 
         {/* Commented out modal component 
         {showModal && <SubscribeModal onClose={() => setShowModal(false)} />}
@@ -73,11 +130,11 @@ const ImageSaver = () => {
 
         {/* Input field and credits section with better positioning */}
         <div className="flex flex-col items-center justify-center w-full px-4 mb-3">
-          {/* Commented out credits display
-          <p className="mr-60 mt-9 mb-2 text-sm text-[#FFFFFF99]">
-            {credits} - download remains
-          </p>
-          */}
+          {invalidErrorURL && (
+            <p className="text-sm text-[#FF5252] mb-2 self-start max-w-md mx-auto">
+              {invalidErrorURL}
+            </p>
+          )}
 
           {/* Input Field with dark background */}
           <div className="flex items-center bg-[#3A3A3C] text-white px-4 py-2 rounded-full w-full max-w-md border border-[#FFFFFF33]">
@@ -92,10 +149,11 @@ const ImageSaver = () => {
 
             {/* Send Button */}
             <button
-              onClick={() => {
-                handleSubmit();
-              }}
-              className="bg-blue-500 p-2 rounded-full hover:bg-blue-600 transition"
+              onClick={handleSubmit}
+              disabled={isLoading}
+              className={`${
+                isLoading ? "bg-blue-400" : "bg-blue-500 hover:bg-blue-600"
+              } p-2 rounded-full transition`}
             >
               <FaPaperPlane className="text-white" />
             </button>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FaPaperPlane } from "react-icons/fa";
 import Navbar from "../Components/Navbar";
-// import SubscribeModal from "../Components/SubscribeModal"; // Already commented out
+// import SubscribeModal from "../Components/SubscribeModal";
 import ImgFetching from "../Components/ImgFetching";
 
 const ImageSaver = () => {
@@ -17,10 +17,14 @@ const ImageSaver = () => {
     localStorage.setItem("userCredits", credits);
   }, [credits]);
   */
-
+  /* for credits limits
+  const handleFetchImage = () => {
+    setInput2(input1);
+  };
+*/
   // use this true of want to show pop up
   // const [showModal, setShowModal] = useState(false); // Commented out modal state
-  // const [isSubscribed, setIsSubscribed] = useState(false); // Already commented out
+  // const [isSubscribed, setIsSubscribed] = useState(false);
 
   // for input fields
   const [input1, setInput1] = useState("");
@@ -28,12 +32,6 @@ const ImageSaver = () => {
 
   // for fetching image container showing
   const [showContainer, setShowContainer] = useState(false);
-
-  // for credits limits
-  const handleFetchImage = () => {
-    setInput2(input1);
-    // Credit check logic already commented out in original
-  };
 
   const handleSubmit = () => {
     setShowContainer(true);

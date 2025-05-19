@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { FaPaperPlane } from "react-icons/fa";
 import Navbar from "../Components/Navbar";
-import SubscribeModal from "../Components/SubscribeModal";
+// import SubscribeModal from "../Components/SubscribeModal"; // Already commented out
 import ImgFetching from "../Components/ImgFetching";
 
 const ImageSaver = () => {
+  /* Commented out credits logic
   const [credits, setCredits] = useState(() => {
     // load credits from local storage or default to 3
     const savedCredits = localStorage.getItem("userCredits");
@@ -15,10 +16,11 @@ const ImageSaver = () => {
     // save credits to local storage
     localStorage.setItem("userCredits", credits);
   }, [credits]);
+  */
 
   // use this true of want to show pop up
-  const [showModal, setShowModal] = useState(false);
-  const [isSubscribed, setIsSubscribed] = useState(false);
+  // const [showModal, setShowModal] = useState(false); // Commented out modal state
+  // const [isSubscribed, setIsSubscribed] = useState(false); // Already commented out
 
   // for input fields
   const [input1, setInput1] = useState("");
@@ -27,23 +29,15 @@ const ImageSaver = () => {
   // for fetching image container showing
   const [showContainer, setShowContainer] = useState(false);
 
-  const handleSubmit = () => {
-    setShowContainer(true);
-    handleFetchImage();
-  };
-
   // for credits limits
   const handleFetchImage = () => {
     setInput2(input1);
+    // Credit check logic already commented out in original
+  };
 
-    if (credits > 0) {
-      // fetch the image from API - GR add Backend
-      setCredits((prev) => prev - 1);
-    } else {
-      // temperary
-      // alert("You have no credits left. Please subscribe to get more credits.");
-      setShowModal(true);
-    }
+  const handleSubmit = () => {
+    setShowContainer(true);
+    handleFetchImage();
   };
 
   return (
@@ -75,13 +69,17 @@ const ImageSaver = () => {
           </div>
         )}
 
+        {/* Commented out modal component 
         {showModal && <SubscribeModal onClose={() => setShowModal(false)} />}
+        */}
 
         {/* Input field and credits section with better positioning */}
         <div className="flex flex-col items-center justify-center w-full px-4 mb-3">
+          {/* Commented out credits display
           <p className="mr-60 mt-9 mb-2 text-sm text-[#FFFFFF99]">
             {credits} - download remains
           </p>
+          */}
 
           {/* Input Field with dark background */}
           <div className="flex items-center bg-[#3A3A3C] text-white px-4 py-2 rounded-full w-full max-w-md border border-[#FFFFFF33]">

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ChevronDown, Menu, X } from "lucide-react";
 import { Docs_LINK } from "../utils/contants";
 
@@ -7,6 +7,7 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [productsDropdownOpen, setProductsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
+  const navigate = useNavigate();
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -45,6 +46,19 @@ const Navbar = () => {
     // Prevent the click from propagating to parent elements
     e.stopPropagation();
     setProductsDropdownOpen(!productsDropdownOpen);
+  };
+
+  // Handle mobile product link clicks with navigate
+  const handleMobileLinkClick = (path, e) => {
+    e.preventDefault(); // Prevent default link behavior
+    e.stopPropagation(); // Stop propagation
+    setIsOpen(false); // Close mobile menu
+    setProductsDropdownOpen(false); // Close dropdown
+
+    // Use setTimeout to ensure state updates complete before navigation
+    setTimeout(() => {
+      navigate(path);
+    }, 10);
   };
 
   return (
@@ -142,7 +156,7 @@ const Navbar = () => {
             <Link
               to="/"
               className="text-white hover:text-gray-300 transition-colors cursor-pointer"
-              onClick={() => setIsOpen(false)}
+              onClick={(e) => handleMobileLinkClick("/", e)}
             >
               Home
             </Link>
@@ -158,27 +172,27 @@ const Navbar = () => {
 
               {productsDropdownOpen && (
                 <div className="pl-4 mt-2 space-y-2">
-                  <Link
-                    to="/carousel"
+                  <a
+                    href="#"
                     className="block text-white hover:text-gray-300 cursor-pointer"
-                    onClick={() => setIsOpen(false)}
+                    onClick={(e) => handleMobileLinkClick("/carousel", e)}
                   >
                     Carousel Saver
-                  </Link>
-                  <Link
-                    to="/video"
+                  </a>
+                  <a
+                    href="#"
                     className="block text-white hover:text-gray-300 cursor-pointer"
-                    onClick={() => setIsOpen(false)}
+                    onClick={(e) => handleMobileLinkClick("/video", e)}
                   >
                     Video Saver
-                  </Link>
-                  <Link
-                    to="/image"
+                  </a>
+                  <a
+                    href="#"
                     className="block text-white hover:text-gray-300 cursor-pointer"
-                    onClick={() => setIsOpen(false)}
+                    onClick={(e) => handleMobileLinkClick("/image", e)}
                   >
                     Image Saver
-                  </Link>
+                  </a>
                 </div>
               )}
             </div>
@@ -186,14 +200,14 @@ const Navbar = () => {
             <Link
               to="/about"
               className="text-white hover:text-gray-300 transition-colors cursor-pointer"
-              onClick={() => setIsOpen(false)}
+              onClick={(e) => handleMobileLinkClick("/about", e)}
             >
               About
             </Link>
             <Link
               to="/contact"
               className="text-white hover:text-gray-300 transition-colors cursor-pointer"
-              onClick={() => setIsOpen(false)}
+              onClick={(e) => handleMobileLinkClick("/contact", e)}
             >
               Contact
             </Link>

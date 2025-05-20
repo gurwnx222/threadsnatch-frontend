@@ -3,8 +3,6 @@ import { FiDownload } from "react-icons/fi";
 import { GoX } from "react-icons/go";
 import axios from "axios";
 const ImgFetching = ({ input2 }) => {
-  console.log("Input two from ImgFetching component:", input2);
-
   //rapid api credentials and threads url
   /*const RAPIDAPI_HOST = 'threadsnatch-api.p.rapidapi.com';
    const RAPIDAPI_KEY  = '8fb18cbf20msh216a409ae60b527p127585jsn3753b79679e9';
@@ -13,18 +11,17 @@ const ImgFetching = ({ input2 }) => {
   const [imageUrl, setImageUrl] = useState("");
   const [imageAuthor, setImageAuthor] = useState("");
   const [imageDescription, setImageDescription] = useState("");
-  const [closeModal, setCloseModal] = useState(false);
+  const [showModal, setShowModal] = useState(true);
+
   const handleClose = () => {
-    setCloseModal(true);
+    console.log("clicked bbay");
+    // closes the model when Click on cross Button
+    setShowModal(false);
   };
 
-  // closes the model when Click on cross Button  <igone this mesage only of git hub change purpose.>
-  if (closeModal) {
-    return null;
-  }
-
   useEffect(() => {
-    if (!input2) return undefined;
+    //avoid sending req for testing close modal with dummy response
+    if (input2) return undefined;
     axios
       .get(
         "https://9eb67802-ba40-410d-a837-7440fbf92fb2-00-sgsg6z9l1bwr.sisko.replit.dev/proxy-image",
@@ -39,6 +36,8 @@ const ImgFetching = ({ input2 }) => {
       })
       .catch(console.error);
   }, [input2]);
+  // If modal is closed, don't render anything
+  if (!showModal) return null;
   return (
     <>
       <div className="flex w-full max-w-md text-white bg-[#2C2C2E] h-[47px] mx-auto border rounded-full border-[#FFFFFF33]">

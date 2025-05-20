@@ -11,15 +11,12 @@ const VidFetching = ({ input2 }) => {
   const [videoUrl, setVideoUrl] = useState("");
   const [videoAuthor, setVideoAuthor] = useState("");
   const [videoDescription, setVideoDescription] = useState("");
-  const [closeModal, setCloseModal] = useState(false);
+  const [showModal, setShowModal] = useState(true);
+
   const handleClose = () => {
-    setCloseModal(true);
+    setShowModal(false);
   };
 
-  // closes the model when Click on cross Button  <igone this mesage only of git hub change purpose.>
-  if (closeModal) {
-    return null;
-  }
   useEffect(() => {
     if (!input2) return undefined;
     axios
@@ -27,7 +24,7 @@ const VidFetching = ({ input2 }) => {
         "https://9eb67802-ba40-410d-a837-7440fbf92fb2-00-sgsg6z9l1bwr.sisko.replit.dev/proxy-video",
         {
           params: { q: input2 },
-          responseType: "blob", // :contentReference[oaicite:9]{index=9}
+          responseType: "blob",
         }
       )
       .then((response) => {
@@ -36,6 +33,10 @@ const VidFetching = ({ input2 }) => {
       })
       .catch(console.error);
   }, [input2]);
+
+  // If modal is closed, don't render anything
+  if (!showModal) return null;
+
   return (
     <>
       <div className="flex w-full max-w-md text-white bg-[#2C2C2E] h-[47px] mx-auto border rounded-full border-[#FFFFFF33]">

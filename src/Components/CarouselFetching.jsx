@@ -4,28 +4,12 @@ import { GoX } from "react-icons/go";
 import axios from "axios";
 
 const CrselFetching = ({ input2 }) => {
-  const [closeModal, setCloseModal] = useState(false);
+  const [showModal, setShowModal] = useState(true);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [fetchedImageUrls, setFetchedImageUrls] = useState([]);
   const [crselAuthor, setCrselAuthor] = useState("");
   const [crselDescription, setCrselDescription] = useState("");
-  const [images, setImages] = useState([
-    {
-      title: "Ghibli Archives (@ghibliarchives)",
-      subtitle: "Porco Rosso (1992)",
-      imageUrl: "/sample_image.jpg",
-    },
-    {
-      title: "Ghibli Archives (@ghibliarchives)",
-      subtitle: "My Neighbor Totoro (1988)",
-      imageUrl: "/sample_image2.jpg",
-    },
-    {
-      title: "Ghibli Archives (@ghibliarchives)",
-      subtitle: "Spirited Away (2001)",
-      imageUrl: "/sample_image3.jpg",
-    },
-  ]);
+  const [images, setImages] = useState([]);
   useEffect(() => {
     if (!input2) return undefined;
 
@@ -73,7 +57,7 @@ const CrselFetching = ({ input2 }) => {
   }, [input2]);
 
   const handleClose = () => {
-    setCloseModal(true);
+    setShowModal(false);
   };
 
   const handleNextImage = () => {
@@ -89,9 +73,7 @@ const CrselFetching = ({ input2 }) => {
   };
 
   // closes the modal when Click on cross Button
-  if (closeModal) {
-    return null;
-  }
+  if (!showModal) return null;
 
   // Safety check for images
   if (!images || images.length === 0) {

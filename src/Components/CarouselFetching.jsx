@@ -1,10 +1,76 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FiDownload } from "react-icons/fi";
 import { GoX } from "react-icons/go";
+import axios from "axios";
 
-const CrselFetching = ({ input2, images }) => {
+const CrselFetching = ({ input2 }) => {
   const [closeModal, setCloseModal] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [fetchedImageUrls, setFetchedImageUrls] = useState([]);
+  const [crselAuthor, setCrselAuthor] = useState("");
+  const [crselDescription, setCrselDescription] = useState("");
+  const [images, setImages] = useState([
+    {
+      title: "Ghibli Archives (@ghibliarchives)",
+      subtitle: "Porco Rosso (1992)",
+      imageUrl: "/sample_image.jpg",
+    },
+    {
+      title: "Ghibli Archives (@ghibliarchives)",
+      subtitle: "My Neighbor Totoro (1988)",
+      imageUrl: "/sample_image2.jpg",
+    },
+    {
+      title: "Ghibli Archives (@ghibliarchives)",
+      subtitle: "Spirited Away (2001)",
+      imageUrl: "/sample_image3.jpg",
+    },
+  ]);
+  useEffect(() => {
+    if (!input2) return undefined;
+
+    axios
+      .get(
+        "https://9eb67802-ba40-410d-a837-7440fbf92fb2-00-sgsg6z9l1bwr.sisko.replit.dev/crsel-media",
+        {
+          params: { q: input2 },
+          responseType: "json",
+        }
+      )
+      .then((response) => {
+        const imageUrls = response.data.images;
+        setFetchedImageUrls(imageUrls);
+
+        // Also get author and description if available
+        if (response.data.author) setCrselAuthor(response.data.author);
+        if (response.data.description)
+          setCrselDescription(response.data.description);
+
+        // Only proceed if we have image URLs
+        if (imageUrls && imageUrls.length > 0) {
+          // Create the proper proxy URLs for each image
+          const proxiedUrls = imageUrls.map(
+            (imageUrl) =>
+              `https://9eb67802-ba40-410d-a837-7440fbf92fb2-00-sgsg6z9l1bwr.sisko.replit.dev${imageUrl}`
+          );
+
+          // Instead of making axios requests for the images,
+          // URLs directly in our images state
+          const newImages = proxiedUrls.map((url, index) => ({
+            title: crselAuthor || "Image",
+            subtitle: crselDescription || `Image ${index + 1}`,
+            imageUrl: url, // This is the direct URL to the image
+          }));
+
+          setImages(newImages);
+          return; // No need for additional axios calls
+        }
+        return Promise.reject("No image URLs found");
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }, [input2]);
 
   const handleClose = () => {
     setCloseModal(true);
@@ -38,7 +104,7 @@ const CrselFetching = ({ input2, images }) => {
     <>
       <div className="flex w-full max-w-md text-white bg-[#2C2C2E] h-[47px] mx-auto border rounded-full border-[#FFFFFF33]">
         <input
-          type="text"
+          type="link"
           value={input2}
           readOnly
           className="bg-transparent w-[85%] outline-none px-5"
@@ -66,6 +132,10 @@ const CrselFetching = ({ input2, images }) => {
             src={currentImage.imageUrl}
             alt="Image Loading"
             className="rounded-lg w-full"
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.src = "/fallback-image.jpg"; // A fallback image if loading fails
+            }}
           />
 
           {/* Carousel Navigation */}

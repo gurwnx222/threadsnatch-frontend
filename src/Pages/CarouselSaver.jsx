@@ -1,35 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaPaperPlane } from "react-icons/fa";
 import Navbar from "../Components/Navbar";
 import CrselFetching from "../Components/CarouselFetching";
 
 const CarouselSaver = () => {
-  // Define the carousel images with appropriate metadata
-  const carouselImages = [
-    {
-      title: "Ghibli Archives (@ghibliarchives)",
-      subtitle: "Porco Rosso (1992)",
-      imageUrl: "/sample_image.jpg",
-    },
-    {
-      title: "Ghibli Archives (@ghibliarchives)",
-      subtitle: "My Neighbor Totoro (1988)",
-      imageUrl: "/sample_image2.jpg",
-    },
-    {
-      title: "Ghibli Archives (@ghibliarchives)",
-      subtitle: "Spirited Away (2001)",
-      imageUrl: "/sample_image3.jpg",
-    },
-  ];
-
   // for input fields
   const [input1, setInput1] = useState("");
   const [input2, setInput2] = useState("");
 
   // for fetching image container showing
   const [showContainer, setShowContainer] = useState(false);
-  const [isSubscribed, setIsSubscribed] = useState(false);
+  // const [isSubscribed, setIsSubscribed] = useState(false);
 
   const handleSubmit = () => {
     handleFetchCrsel();
@@ -48,6 +29,7 @@ const CarouselSaver = () => {
         className="fixed top-0 left-0 w-full h-full bg-[#1D1D1E] bg-blend-overlay opacity-50 z-0"
         style={{
           backgroundImage: "url('/background-confetti.png')",
+          backgroundPosition: "center",
         }}
       ></div>
 
@@ -58,14 +40,14 @@ const CarouselSaver = () => {
         <div className="flex flex-col items-center justify-center text-center px-12 z-10 mb-12">
           <h2 className="text-3xl font-medium">Carousel Downloader</h2>
           <p className="text-[#FFFFFF99] mt-2">
-            Fetch and Download Carousel from Meta Threads
+            Fetch and Download Carousel Posts in few seconds from Meta Threads
           </p>
         </div>
 
         {/* Image fetching container with adjusted positioning */}
         {showContainer && (
           <div className="z-20 w-full mx-auto mb-8">
-            <CrselFetching input2={input2} images={carouselImages} />
+            <CrselFetching input2={input2} />
           </div>
         )}
 

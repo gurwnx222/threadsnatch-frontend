@@ -160,43 +160,6 @@ const Navbar = () => {
             >
               Home
             </Link>
-
-            {/* Mobile Products Dropdown */}
-            <div>
-              <button
-                onClick={toggleProductsDropdown}
-                className="text-white hover:text-gray-300 transition-colors w-full text-left flex items-center justify-between cursor-pointer"
-              >
-                Products <ChevronDown size={16} />
-              </button>
-
-              {productsDropdownOpen && (
-                <div className="pl-4 mt-2 space-y-2">
-                  <a
-                    href="#"
-                    className="block text-white hover:text-gray-300 cursor-pointer"
-                    onClick={(e) => handleMobileLinkClick("/carousel", e)}
-                  >
-                    Carousel Saver
-                  </a>
-                  <a
-                    href="#"
-                    className="block text-white hover:text-gray-300 cursor-pointer"
-                    onClick={(e) => handleMobileLinkClick("/video", e)}
-                  >
-                    Video Saver
-                  </a>
-                  <a
-                    href="#"
-                    className="block text-white hover:text-gray-300 cursor-pointer"
-                    onClick={(e) => handleMobileLinkClick("/image", e)}
-                  >
-                    Image Saver
-                  </a>
-                </div>
-              )}
-            </div>
-
             <Link
               to="/about"
               className="text-white hover:text-gray-300 transition-colors cursor-pointer"
@@ -211,6 +174,36 @@ const Navbar = () => {
             >
               Contact
             </Link>
+            {/* Mobile Products Dropdown */}
+            <div>
+              <hr class="h-px my-2 bg-gray-200 border-0 dark:bg-gray-700" />
+              <p className="text-[#f4f4f8] mt-2 text-lg w-full text-left flex items-center justify-between cursor-pointer">
+                Savers
+              </p>
+              <div className="flex flex-col flex-start gap-2 mt-3 ml-3">
+                <Link
+                  to="/carousel"
+                  className="text-white hover:text-gray-300 transition-colors cursor-pointer"
+                  onClick={(e) => handleMobileLinkClick("/carousel", e)}
+                >
+                  Carousel Saver
+                </Link>
+                <Link
+                  to="/video"
+                  className="text-white hover:text-gray-300 transition-colors cursor-pointer"
+                  onClick={(e) => handleMobileLinkClick("/video", e)}
+                >
+                  Video Saver
+                </Link>
+                <Link
+                  to="/image"
+                  className="text-white hover:text-gray-300 transition-colors cursor-pointer"
+                  onClick={(e) => handleMobileLinkClick("/image", e)}
+                >
+                  Image Saver
+                </Link>
+              </div>
+            </div>
 
             {/* Mobile Docs Button */}
             <a

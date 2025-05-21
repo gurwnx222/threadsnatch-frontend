@@ -176,7 +176,7 @@ const Navbar = () => {
             </Link>
             {/* Mobile Products Dropdown */}
             <div>
-              <hr class="h-px my-2 bg-gray-200 border-0 dark:bg-gray-700" />
+              <hr className="h-px my-2 bg-gray-200 border-0 dark:bg-gray-700" />
               <p className="text-[#f4f4f8] mt-2 text-lg w-full text-left flex items-center justify-between cursor-pointer">
                 Savers
               </p>

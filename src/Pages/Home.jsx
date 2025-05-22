@@ -106,8 +106,6 @@ const Home = () => {
                   how fast it works.
                 </p>
               </div>
-
-              {/* Right Side - Multiple Cards */}
               <div className="space-y-8">
                 <ThreeDCardDemo
                   title="Carousel Saver"
@@ -115,6 +113,7 @@ const Home = () => {
                   imageSrc="/carousel-page-for-product-section.png"
                   imageAlt="Carousel Saver Tool"
                   ctaText="Go to Carousel Saver"
+                  ctaLink="/carousel"
                 />
                 <ThreeDCardDemo
                   title="Video Saver"
@@ -123,6 +122,7 @@ original quality."
                   imageSrc="/video-page-for-product-section.png"
                   imageAlt="Video Downloader Tool"
                   ctaText="Go to Video Saver"
+                  ctaLink="/video"
                 />
                 <ThreeDCardDemo
                   title="Image Extractor"
@@ -131,6 +131,7 @@ original quality."
                   imageSrc="/image-page-for-product-section.png"
                   imageAlt="Image Extractor Tool"
                   ctaText="Go to Image Saver"
+                  ctaLink="/image"
                 />
               </div>
             </div>

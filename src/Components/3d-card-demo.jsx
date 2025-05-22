@@ -1,12 +1,13 @@
 import { CardBody, CardContainer, CardItem } from "./ui/3d-card";
+import { Link } from "react-router-dom";
 
 export default function ThreeDCardDemo({
   title,
   description,
   imageSrc,
   imageAlt = "thumbnail",
-
   ctaText = "Go to Tool",
+  ctaLink = "/",
 }) {
   return (
     <CardContainer className="inter-var">
@@ -37,7 +38,8 @@ export default function ThreeDCardDemo({
         <div className="flex justify-between items-center mt-20">
           <CardItem
             translateZ={20}
-            as="button"
+            as={Link}
+            to={ctaLink}
             className="px-4 py-2 rounded-xl bg-black dark:bg-white dark:text-black text-white text-xs font-bold"
           >
             {ctaText}

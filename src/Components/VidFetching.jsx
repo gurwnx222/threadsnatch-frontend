@@ -12,27 +12,59 @@ const VidFetching = ({ input2 }) => {
   const [videoAuthor, setVideoAuthor] = useState("");
   const [videoDescription, setVideoDescription] = useState("");
   const [showModal, setShowModal] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleClose = () => {
-    setShowModal(false);
+  const url = import.meta.env.RAPID_API_ENDPOINT_VIDEO;
+  const params = {
+    q: "https://www.threads.net/@xtraai7/post/DIhLAPGoHjW?xmt=AQGzw8TOGPDHdqfEiv9J3PVu2rhbh3A2-sSPAB0LwTzRMQ",
   };
-
+  const headers = {
+    "x-rapidapi-key": import.meta.env.X_RAPID_API_KEY,
+    "x-rapidapi-host": import.meta.env.X_RAPID_API_HOST,
+  };
   useEffect(() => {
     if (!input2) return undefined;
     axios
-      .get(
-        "https://9eb67802-ba40-410d-a837-7440fbf92fb2-00-sgsg6z9l1bwr.sisko.replit.dev/proxy-video",
-        {
-          params: { q: input2 },
-          responseType: "blob",
+      .get(url, { params, headers })
+      .then((response) => {
+        const videoDescription =
+          response?.data?.data?.postData?.postDescription;
+        const videoAuthor = response?.data?.data?.postData?.postTitle;
+
+        if (videoDescription && videoAuthor) {
+          setVideoAuthor(videoAuthor);
+          setVideoDescription(videoDescription);
+
+          return axios.get(
+            "https://9eb67802-ba40-410d-a837-7440fbf92fb2-00-sgsg6z9l1bwr.sisko.replit.dev/proxy-video",
+            {
+              params: { q: input2 },
+              responseType: "blob",
+            }
+          );
+        } else {
+          throw new Error("Failed to retrieve video metadata");
         }
-      )
+      })
       .then((response) => {
         const objectUrl = URL.createObjectURL(response.data);
         setVideoUrl(objectUrl);
+        setIsLoading(false);
       })
-      .catch(console.error);
+      .catch((error) => {
+        console.error("Error fetching video:", error);
+        setIsLoading(false);
+      });
+    // Cleanup function to revoke object URL when component unmounts
+    return () => {
+      if (videoUrl) {
+        URL.revokeObjectURL(videoUrl);
+      }
+    };
   }, [input2]);
+  const handleClose = () => {
+    setShowModal(false);
+  };
 
   // If modal is closed, don't render anything
   if (!showModal) return null;
@@ -52,7 +84,7 @@ const VidFetching = ({ input2 }) => {
         </button>
       </div>
 
-      {/* Image fetching section */}
+      {/* video fetching section */}
       <div className="rounded-3xl border border-[#EBEBF5] bg-[#2C2C2E] max-w-md flex flex-col w-full p-3 mx-auto">
         <div className="flex m-4">
           <div className="flex flex-col ">

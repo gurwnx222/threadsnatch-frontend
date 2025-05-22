@@ -2,18 +2,55 @@ import React, { useState, useEffect } from "react";
 import Navbar from "../Components/Navbar";
 import Carousel from "../Components/Carousel";
 import Footer from "../Components/Footer";
+import ProofSection from "../Components/ProofSection";
 import { Zap, Plug, Shield, Target, Plus, Download } from "lucide-react";
 import Pricing from "../Components/Pricing";
 import { API_LINK, Docs_LINK } from "../utils/contants";
 import ThreeDCardDemo from "../Components/3d-card-demo";
 
 const Home = () => {
+  const [backgroundStyle, setBackgroundStyle] = useState("hero");
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const proofSection = document.getElementById("proof-section");
+      if (proofSection) {
+        const rect = proofSection.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+
+        // Check if proof section is in view
+        if (
+          rect.top <= windowHeight * 0.7 &&
+          rect.bottom >= windowHeight * 0.3
+        ) {
+          setBackgroundStyle("proof");
+        } else {
+          setBackgroundStyle("hero");
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <div className="font-montserrat relative min-h-screen w-full overflow-x-hidden">
-      {/* Background Image - moved to a lower z-index */}
+      {/* Dynamic Background with smooth transition */}
       <div
-        className="fixed top-0 left-0 w-full h-full bg-cover bg-center animate-moveBg sm:bg-cover z-0"
+        className={`fixed top-0 left-0 w-full h-full bg-cover bg-center z-0 transition-all duration-1000 ease-in-out ${
+          backgroundStyle === "proof"
+            ? "opacity-0"
+            : "opacity-100 animate-moveBg"
+        }`}
         style={{ backgroundImage: "url('/BG-img1.jpg')" }}
+      ></div>
+
+      {/* Ghost white background for proof section */}
+      <div
+        className={`fixed top-0 left-0 w-full h-full z-0 transition-all duration-1000 ease-in-out ${
+          backgroundStyle === "proof" ? "opacity-100 bg-gray-50" : "opacity-0"
+        }`}
       ></div>
 
       {/* Navbar - highest z-index */}
@@ -106,7 +143,7 @@ const Home = () => {
                   how fast it works.
                 </p>
               </div>
-              <div className="space-y-8">
+              <div className="space-y-2 md:space-y-6">
                 <ThreeDCardDemo
                   title="Carousel Saver"
                   description="1-Click Carousel Post Download entire carousels—preserve slide order, captions, and CTAs"
@@ -137,7 +174,9 @@ original quality."
             </div>
           </div>
         </section>
+        {/* Proof Section - New addition */}
 
+        <ProofSection />
         {/* Third section - features */}
         <section
           className="relative z-10 w-full bg-cover bg-center py-24 px-4"

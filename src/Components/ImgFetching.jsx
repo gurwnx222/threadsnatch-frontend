@@ -11,17 +11,39 @@ const ImgFetching = ({ input2 }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const url = import.meta.env.RAPID_API_ENDPOINT;
+  // Fixed environment variable access with proper naming convention
+  const url = import.meta.env.VITE_RAPID_API_ENDPOINT_IMAGE;
+  const rapidApiKey = import.meta.env.VITE_X_RAPID_API_KEY;
+  const rapidApiHost = import.meta.env.VITE_X_RAPID_API_HOST;
+  console.log(url);
+
+  // Debug logging to check if env vars are loaded
+  console.log("Environment variables:", {
+    url,
+    hasApiKey: !!rapidApiKey,
+    hasApiHost: !!rapidApiHost,
+  });
+
   const params = {
     q: input2,
   };
+
   const headers = {
-    "x-rapidapi-key": import.meta.env.X_RAPID_API_KEY,
-    "x-rapidapi-host": import.meta.env.X_RAPID_API_HOST,
+    "x-rapidapi-key": rapidApiKey,
+    "x-rapidapi-host": rapidApiHost,
   };
 
   useEffect(() => {
     if (!input2) return;
+
+    // Check if required environment variables are available
+    if (!url || !rapidApiKey || !rapidApiHost) {
+      setError(
+        "Missing required environment variables. Please check your .env file."
+      );
+      setIsLoading(false);
+      return;
+    }
 
     // Reset states when attempting a new fetch
     setError(null);
@@ -57,7 +79,9 @@ const ImgFetching = ({ input2 }) => {
       .catch((error) => {
         console.error("Error fetching image:", error);
         setError(
-          error.message || "Failed to load image. Please try again later."
+          error.response?.data?.message ||
+            error.message ||
+            "Failed to load image. Please try again later."
         );
         setIsLoading(false);
       });
@@ -68,7 +92,7 @@ const ImgFetching = ({ input2 }) => {
         URL.revokeObjectURL(imageUrl);
       }
     };
-  }, [input2]);
+  }, [input2, url, rapidApiKey, rapidApiHost]); // Added dependencies
 
   const handleClose = () => {
     setShowModal(false);

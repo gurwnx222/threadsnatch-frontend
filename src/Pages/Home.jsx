@@ -6,7 +6,7 @@ import ProofSection from "../Components/ProofSection";
 import { Zap, Plug, Shield, Target, Plus, Download } from "lucide-react";
 import Pricing from "../Components/Pricing";
 import { API_LINK, Docs_LINK } from "../utils/contants";
-import ThreeDCardDemo from "../Components/3d-card-demo";
+import ThreeDCard from "../Components/3d-card-demo";
 
 const Home = () => {
   const [backgroundStyle, setBackgroundStyle] = useState("hero");
@@ -18,10 +18,10 @@ const Home = () => {
         const rect = proofSection.getBoundingClientRect();
         const windowHeight = window.innerHeight;
 
-        // Check if proof section is in view
+        // Check if proof section is in view - made more sensitive
         if (
-          rect.top <= windowHeight * 0.7 &&
-          rect.bottom >= windowHeight * 0.3
+          rect.top <= windowHeight * 0.8 &&
+          rect.bottom >= windowHeight * 0.2
         ) {
           setBackgroundStyle("proof");
         } else {
@@ -29,6 +29,9 @@ const Home = () => {
         }
       }
     };
+
+    // Call once on mount to check initial position
+    handleScroll();
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -46,10 +49,10 @@ const Home = () => {
         style={{ backgroundImage: "url('/BG-img1.jpg')" }}
       ></div>
 
-      {/* Ghost white background for proof section */}
+      {/* Lavender background for proof section */}
       <div
         className={`fixed top-0 left-0 w-full h-full z-0 transition-all duration-1000 ease-in-out ${
-          backgroundStyle === "proof" ? "opacity-100 bg-gray-50" : "opacity-0"
+          backgroundStyle === "proof" ? "opacity-100 bg-[#e6e6fa]" : "opacity-0"
         }`}
       ></div>
 
@@ -70,7 +73,7 @@ const Home = () => {
             </div>
 
             {/* Plus icon - centered between headlines */}
-            <div className="flex items-center justify-center m-10 md:mx-20 md:my-20 md:my-0">
+            <div className="flex items-center justify-center m-10 md:mx-20 md:my-20">
               <div className="bg-white rounded-lg p-2">
                 <Plus size={18} className="text-blue-600" />
               </div>
@@ -144,7 +147,7 @@ const Home = () => {
                 </p>
               </div>
               <div className="space-y-2 md:space-y-6">
-                <ThreeDCardDemo
+                <ThreeDCard
                   title="Carousel Saver"
                   description="1-Click Carousel Post Download entire carousels—preserve slide order, captions, and CTAs"
                   imageSrc="/carousel-page-for-product-section.png"
@@ -152,7 +155,7 @@ const Home = () => {
                   ctaText="Go to Carousel Saver"
                   ctaLink="/carousel"
                 />
-                <ThreeDCardDemo
+                <ThreeDCard
                   title="Video Saver"
                   description="Bulk Download Threads Videos in 4 Seconds. Grab HD videos in their 
 original quality."
@@ -161,7 +164,7 @@ original quality."
                   ctaText="Go to Video Saver"
                   ctaLink="/video"
                 />
-                <ThreeDCardDemo
+                <ThreeDCard
                   title="Image Extractor"
                   description="Get Threads Images in a 4 Seconds. Grab HD images in their 
 original quality."
@@ -174,73 +177,22 @@ original quality."
             </div>
           </div>
         </section>
-        {/* Proof Section - New addition */}
 
-        <ProofSection />
-        {/* Third section - features */}
+        {/* Proof Section - FIXED: Added proper styling and padding */}
         <section
-          className="relative z-10 w-full bg-cover bg-center py-24 px-4"
-          style={{ backgroundImage: "url('/BG-img1.jpg')" }}
+          id="proof-section"
+          className="relative z-10 w-full py-16 md:py-24"
+          style={{ backgroundColor: "transparent" }}
         >
-          {/* Added Section - Pricing */}
-          <div className="text-white font-montserrat flex items-center justify-center text-3xl leading-snug font-medium">
-            Supercharge Your Projects: <br /> Unlock the Ultimate Meta Threads
-            API Plan Today!
-          </div>
-          <Pricing />
-
-          <div className="flex flex-col items-center gap-3 text-white">
-            <h2 className="font-medium text-2xl sm:text-3xl text-center">
-              Empower Your Journey
-            </h2>
-            <p className="text-xl text-center">
-              Explore the Features That Transform Ideas into Impact
-            </p>
-
-            {/* Feature Boxes */}
-            <div className="w-full max-w-4xl mx-auto">
-              {[
-                {
-                  title: "Lightning Fast Performance",
-                  desc: "Extract all post links in seconds—experience rapid results that keep your workflow moving.",
-                  icon: Zap,
-                },
-                {
-                  title: "Effortless Integration",
-                  desc: "Simply paste a meta threads post link and start scraping—our API fits right into your existing setup with zero hassle.",
-                  icon: Plug,
-                },
-                {
-                  title: "Unmatched Reliability",
-                  desc: "Trust our high success rate to consistently deliver every desired link, so you never miss a beat.",
-                  icon: Shield,
-                },
-                {
-                  title: "Precision Accuracy",
-                  desc: "Capture every link with pinpoint accuracy, ensuring you always have complete and reliable data.",
-                  icon: Target,
-                },
-              ].map((feature, index) => (
-                <div
-                  key={index}
-                  className="w-full lg:w-[51rem] h-auto m-3 p-5 flex flex-col gap-2 justify-center border-4 border-[#605e6337] 
-                  bg-[rgba(77,77,77,0.1)] rounded-lg transition-transform duration-300 
-                  hover:scale-[1.02] hover:-translate-y-1 hover:bg-[rgba(77,77,77,0.2)] hover:shadow-lg mx-auto"
-                >
-                  <div className="flex items-center gap-3">
-                    <feature.icon size={24} className="text-white" />
-                    <h3 className="text-lg">{feature.title}</h3>
-                  </div>
-                  <p className="pl-4">{feature.desc}</p>
-                </div>
-              ))}
-            </div>
-          </div>
+          <ProofSection />
         </section>
       </main>
 
-      {/* Footer */}
-      <footer className="relative z-10 w-full">
+      {/* Footer - FIXED: Added proper background styling */}
+      <footer
+        className="relative z-10 w-full"
+        style={{ backgroundColor: "transparent" }}
+      >
         <Footer />
       </footer>
     </div>

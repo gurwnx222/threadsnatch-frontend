@@ -1,5 +1,6 @@
 import React from "react";
 import CountUp from "./ui/count-up";
+import GlowingEffect from "./glowing-effect-demo";
 const ProofSection = () => {
   const stats = [
     {
@@ -46,11 +47,8 @@ const ProofSection = () => {
   ];
 
   return (
-    <div className="relative z-10 w-full py-16 md:py-24 px-4 md:px-8 bg-gray-50 font-montserrat">
-      <section
-        id="proof-section"
-        className="relative z-10 w-full py-16 md:py-24 px-4 md:px-8 bg-gray-50 font-montserrat"
-      >
+    <div className="relative z-10 w-full py-16 md:py-24 px-4 md:px-8 font-montserrat">
+      <section id="proof-section">
         <div className="max-w-4xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
             {stats.map((stat, index) => (
@@ -79,11 +77,8 @@ const ProofSection = () => {
           </div>
         </div>
       </section>
-      <section
-        id="proof-section"
-        className="relative z-10 w-full py-16 md:py-24 px-4 md:px-8 bg-gray-50 font-montserrat"
-      >
-        ss
+      <section id="feature-section" className="mt-24">
+        <GlowingEffect />
       </section>
     </div>
   );

@@ -12,34 +12,22 @@ const ImgFetching = ({ input2 }) => {
   const [error, setError] = useState(null);
 
   // Fixed environment variable access with proper naming convention
-  const url = import.meta.env.VITE_RAPID_API_ENDPOINT_IMAGE;
-  const rapidApiKey = import.meta.env.VITE_X_RAPID_API_KEY;
-  const rapidApiHost = import.meta.env.VITE_X_RAPID_API_HOST;
-  console.log(url);
-
-  // Debug logging to check if env vars are loaded
-  console.log("Environment variables:", {
-    url,
-    hasApiKey: !!rapidApiKey,
-    hasApiHost: !!rapidApiHost,
-  });
+  const url = import.meta.env.VITE_PROXY_IMAGE_PROXY_ENDPOINT;
 
   const params = {
     q: input2,
   };
 
-  const headers = {
-    "x-rapidapi-key": rapidApiKey,
-    "x-rapidapi-host": rapidApiHost,
-  };
-
   useEffect(() => {
-    if (!input2) return;
+    if (!input2)
+      setError(
+        "Missing input. Please provide a valid input to fetch the image."
+      );
 
     // Check if required environment variables are available
-    if (!url || !rapidApiKey || !rapidApiHost) {
+    if (!url) {
       setError(
-        "Missing required environment variables. Please check your .env file."
+        "Missing required environment variables for Proxy Image Fetch. Please check your .env file."
       );
       setIsLoading(false);
       return;
@@ -49,42 +37,9 @@ const ImgFetching = ({ input2 }) => {
     setError(null);
     setIsLoading(true);
 
-    axios
-      .get(url, { params, headers })
-      .then((response) => {
-        const imageDescription =
-          response?.data?.data?.postData?.postDescription;
-        const imageAuthor = response?.data?.data?.postData?.postTitle;
-
-        if (imageDescription && imageAuthor) {
-          setImageAuthor(imageAuthor);
-          setImageDescription(imageDescription);
-
-          return axios.get(
-            "https://9eb67802-ba40-410d-a837-7440fbf92fb2-00-sgsg6z9l1bwr.sisko.replit.dev/proxy-image",
-            {
-              params: { q: input2 },
-              responseType: "blob",
-            }
-          );
-        } else {
-          throw new Error("Failed to retrieve image metadata");
-        }
-      })
-      .then((response) => {
-        const objectUrl = URL.createObjectURL(response.data);
-        setImageUrl(objectUrl);
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error fetching image:", error);
-        setError(
-          error.response?.data?.message ||
-            error.message ||
-            "Failed to load image. Please try again later."
-        );
-        setIsLoading(false);
-      });
+    axios.get(url, { params }).then((response) => {
+      console.log("Response from image proxy:", response.data);
+    });
 
     // Cleanup function to revoke object URL when component unmounts
     return () => {
@@ -92,7 +47,7 @@ const ImgFetching = ({ input2 }) => {
         URL.revokeObjectURL(imageUrl);
       }
     };
-  }, [input2, url, rapidApiKey, rapidApiHost]); // Added dependencies
+  }, [input2, url]); // Added dependencies
 
   const handleClose = () => {
     setShowModal(false);

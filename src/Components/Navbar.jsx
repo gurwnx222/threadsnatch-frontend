@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom"; // Assuming you're using React Router
+import { Link, useNavigate } from "react-router-dom";
 import { ChevronDown, Menu, X } from "lucide-react";
-import { API_LINK, Docs_LINK } from "../utils/contants";
+import { Docs_LINK } from "../utils/contants";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [productsDropdownOpen, setProductsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
+  const navigate = useNavigate();
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -41,12 +42,27 @@ const Navbar = () => {
     if (productsDropdownOpen) setProductsDropdownOpen(false);
   };
 
-  const toggleProductsDropdown = () => {
+  const toggleProductsDropdown = (e) => {
+    // Prevent the click from propagating to parent elements
+    e.stopPropagation();
     setProductsDropdownOpen(!productsDropdownOpen);
   };
 
+  // Handle mobile product link clicks with navigate
+  const handleMobileLinkClick = (path, e) => {
+    e.preventDefault(); // Prevent default link behavior
+    e.stopPropagation(); // Stop propagation
+    setIsOpen(false); // Close mobile menu
+    setProductsDropdownOpen(false); // Close dropdown
+
+    // Use setTimeout to ensure state updates complete before navigation
+    setTimeout(() => {
+      navigate(path);
+    }, 10);
+  };
+
   return (
-    <nav className="bg-transparent py-4 px-4 md:px-8">
+    <nav className="bg-transparent py-4 px-4 md:px-8 relative z-50">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         {/* Logo */}
         <div className="flex items-center">
@@ -68,56 +84,65 @@ const Navbar = () => {
 
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center space-x-8">
-          <Link to="/" className="text-white hover:text-gray-300 transition-colors">
+          <Link
+            to="/"
+            className="text-white hover:text-gray-300 transition-colors cursor-pointer"
+          >
             Home
           </Link>
-          
+
           {/* Products Dropdown */}
           <div className="relative" ref={dropdownRef}>
             <button
               onClick={toggleProductsDropdown}
-              className="text-white hover:text-gray-300 transition-colors flex items-center"
+              className="text-white hover:text-gray-300 transition-colors flex items-center cursor-pointer"
             >
               Products <ChevronDown size={16} className="ml-1" />
             </button>
-            
+
             {productsDropdownOpen && (
-              <div className="absolute top-full left-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
+              <div className="absolute top-full left-0 mt-2 w-48 bg-[#2A2A2C] rounded-md shadow-lg py-1 z-50">
                 <Link
                   to="/carousel"
-                  className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
+                  className="block px-4 py-2 text-white hover:bg-[#3A3A3C] cursor-pointer"
                 >
                   Carousel Saver
                 </Link>
                 <Link
                   to="/video"
-                  className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
+                  className="block px-4 py-2 text-white hover:bg-[#3A3A3C] cursor-pointer"
                 >
                   Video Saver
                 </Link>
                 <Link
                   to="/image"
-                  className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
+                  className="block px-4 py-2 text-white hover:bg-[#3A3A3C] cursor-pointer"
                 >
                   Image Saver
                 </Link>
               </div>
             )}
           </div>
-          
-          <Link to="/about" className="text-white hover:text-gray-300 transition-colors">
+
+          <Link
+            to="/about"
+            className="text-white hover:text-gray-300 transition-colors cursor-pointer"
+          >
             About
           </Link>
-          <Link to="/contact" className="text-white hover:text-gray-300 transition-colors">
+          <Link
+            to="/contact"
+            className="text-white hover:text-gray-300 transition-colors cursor-pointer"
+          >
             Contact
           </Link>
-          
+
           {/* Docs Button */}
           <a
             href={Docs_LINK}
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-white hover:bg-gray-200 text-black py-2 px-4 rounded-lg flex items-center gap-2 transition-colors"
+            className="bg-white hover:bg-gray-200 text-black py-2 px-4 rounded-lg flex items-center gap-2 transition-colors cursor-pointer"
           >
             <img src="/Vector.svg" alt="Docs Icon" className="w-4 h-4" /> Docs
           </a>
@@ -126,73 +151,66 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden bg-gray-900 bg-opacity-95 rounded-lg mt-4 p-4">
+        <div className="md:hidden bg-[#2A2A2C] rounded-lg mt-4 p-4 absolute left-4 right-4 z-50">
           <div className="flex flex-col space-y-4">
             <Link
               to="/"
-              className="text-white hover:text-gray-300 transition-colors"
-              onClick={() => setIsOpen(false)}
+              className="text-white hover:text-gray-300 transition-colors cursor-pointer"
+              onClick={(e) => handleMobileLinkClick("/", e)}
             >
               Home
             </Link>
-            
-            {/* Mobile Products Dropdown */}
-            <div>
-              <button
-                onClick={toggleProductsDropdown}
-                className="text-white hover:text-gray-300 transition-colors w-full text-left flex items-center justify-between"
-              >
-                Products <ChevronDown size={16} />
-              </button>
-              
-              {productsDropdownOpen && (
-                <div className="pl-4 mt-2 space-y-2">
-                  <Link
-                    to="/carousel-saver"
-                    className="block text-white hover:text-gray-300"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    Carousel Saver
-                  </Link>
-                  <Link
-                    to="/video"
-                    className="block text-white hover:text-gray-300"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    Video Saver
-                  </Link>
-                  <Link
-                    to="/image"
-                    className="block text-white hover:text-gray-300"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    Image Saver
-                  </Link>
-                </div>
-              )}
-            </div>
-            
             <Link
               to="/about"
-              className="text-white hover:text-gray-300 transition-colors"
-              onClick={() => setIsOpen(false)}
+              className="text-white hover:text-gray-300 transition-colors cursor-pointer"
+              onClick={(e) => handleMobileLinkClick("/about", e)}
             >
               About
             </Link>
             <Link
               to="/contact"
-              className="text-white hover:text-gray-300 transition-colors"
-              onClick={() => setIsOpen(false)}
+              className="text-white hover:text-gray-300 transition-colors cursor-pointer"
+              onClick={(e) => handleMobileLinkClick("/contact", e)}
             >
               Contact
             </Link>
-            
+            {/* Mobile Products Dropdown */}
+            <div>
+              <hr className="h-px my-2 bg-gray-200 border-0 dark:bg-gray-700" />
+              <p className="text-[#f4f4f8] mt-2 text-lg w-full text-left flex items-center justify-between cursor-pointer">
+                Savers
+              </p>
+              <div className="flex flex-col flex-start gap-2 mt-3 ml-3">
+                <Link
+                  to="/carousel"
+                  className="text-white hover:text-gray-300 transition-colors cursor-pointer"
+                  onClick={(e) => handleMobileLinkClick("/carousel", e)}
+                >
+                  Carousel Saver
+                </Link>
+                <Link
+                  to="/video"
+                  className="text-white hover:text-gray-300 transition-colors cursor-pointer"
+                  onClick={(e) => handleMobileLinkClick("/video", e)}
+                >
+                  Video Saver
+                </Link>
+                <Link
+                  to="/image"
+                  className="text-white hover:text-gray-300 transition-colors cursor-pointer"
+                  onClick={(e) => handleMobileLinkClick("/image", e)}
+                >
+                  Image Saver
+                </Link>
+              </div>
+            </div>
+
             {/* Mobile Docs Button */}
             <a
               href={Docs_LINK}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-white hover:bg-gray-200 text-black py-2 px-4 rounded-lg flex items-center justify-center gap-2 transition-colors"
+              className="bg-white hover:bg-gray-200 text-black py-2 px-4 rounded-lg flex items-center justify-center gap-2 transition-colors cursor-pointer"
               onClick={() => setIsOpen(false)}
             >
               <img src="/Vector.svg" alt="Docs Icon" className="w-4 h-4" /> Docs

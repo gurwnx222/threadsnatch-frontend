@@ -22,7 +22,7 @@ const VideoSaver = () => {
   const handleSubmit = () => {
     // Reset error message
     setInvalidErrorURL("");
-
+    setIsLoading(false);
     if (!input1) {
       setInvalidErrorURL("Please enter a URL");
       return;
@@ -44,6 +44,18 @@ const VideoSaver = () => {
     // Show the container
     setShowContainer(true);
   };
+
+  // Reset loading state when input2 changes (new URL is being processed)
+  useEffect(() => {
+    if (input2) {
+      // Reset loading after a short delay to allow the VidFetching component to initialize
+      const timer = setTimeout(() => {
+        setIsLoading(false);
+      }, 1000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [input2]);
 
   // This function can be passed to VidFetching to signal when loading is complete
   const handleVideoFetchComplete = (success) => {

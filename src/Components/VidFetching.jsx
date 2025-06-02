@@ -4,7 +4,6 @@ import { GoX } from "react-icons/go";
 import axios from "axios";
 
 const VidFetching = ({ input2 }) => {
-  // add case for when adding new url and then cleaning the previous state
   const [videoUrl, setVideoUrl] = useState("");
   const [videoAuthor, setVideoAuthor] = useState("");
   const [videoDescription, setVideoDescription] = useState("");
@@ -19,14 +18,25 @@ const VidFetching = ({ input2 }) => {
     "x-rapidapi-key": import.meta.env.VITE_X_RAPID_API_KEY,
     "x-rapidapi-host": import.meta.env.VITE_X_RAPID_API_HOST,
   };
+
   useEffect(() => {
     if (!input2) return undefined;
+
+    // Reset state and hide modal when new URL is being processed
+    setIsLoading(true);
+    setShowModal(false);
+    setVideoUrl("");
+    setVideoAuthor("");
+    setVideoDescription("");
+
     axios
       .get(url, { params, headers })
       .then((response) => {
         const videoDescription = response?.data?.metaTags?.postDescription;
         const videoAuthor = response?.data?.metaTags?.postTitle;
         const proxyVideoUrl = response?.data?.videoUrlURIEncoded;
+        console.log("Response from API:", response?.data);
+
         if (videoDescription && videoAuthor) {
           setVideoAuthor(videoAuthor);
           setVideoDescription(videoDescription);
@@ -47,11 +57,16 @@ const VidFetching = ({ input2 }) => {
         console.log("Object URL created:", objectUrl);
         setVideoUrl(objectUrl);
         setIsLoading(false);
+        // Show modal only after data is completely loaded
+        setShowModal(true);
       })
       .catch((error) => {
         console.error("Error fetching video:", error);
         setIsLoading(false);
+        // Optionally show modal even on error, or handle error state differently
+        setShowModal(true);
       });
+
     // Cleanup function to revoke object URL when component unmounts
     return () => {
       if (videoUrl) {
@@ -59,6 +74,7 @@ const VidFetching = ({ input2 }) => {
       }
     };
   }, [input2]);
+
   const handleClose = () => {
     setShowModal(false);
   };
@@ -86,7 +102,7 @@ const VidFetching = ({ input2 }) => {
         <div className="flex m-4">
           <div className="flex flex-col ">
             <p>{videoAuthor}</p>
-            <p className="text-[#FFFFFFCC]">{videoDescription}</p>
+            <p className="text-[#EBEBF5CC]">{videoDescription}</p>
           </div>
           <a
             href={videoUrl}

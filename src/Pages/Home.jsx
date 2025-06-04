@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "../Components/Navbar";
-import Carousel from "../Components/Carousel";
 import Footer from "../Components/Footer";
 import ProofSection from "../Components/ProofSection";
 import { Zap, Plug, Shield, Target, Plus, Download } from "lucide-react";

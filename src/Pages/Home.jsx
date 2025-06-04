@@ -161,8 +161,8 @@ const Home = () => {
 original quality."
                   imageSrc="/video-page-for-product-section.png"
                   imageAlt="Video Downloader Tool"
-                  ctaText="Go to Video Saver"
-                  ctaLink="/video"
+                  ctaText="Coming Soon..."
+                  ctaLink="#"
                 />
                 <ThreeDCard
                   title="Image Extractor"

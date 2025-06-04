@@ -34,7 +34,7 @@ const VidFetching = ({ input2 }) => {
       .then((response) => {
         const videoDescription = response?.data?.metaTags?.postDescription;
         const videoAuthor = response?.data?.metaTags?.postTitle;
-        const proxyVideoUrl = response?.data?.videoUrlURIEncoded;
+        const proxyVideoUrl = response?.data?.data?.videoUrlURIEncoded;
         console.log("Response from API:", response?.data);
 
         if (videoDescription && videoAuthor) {

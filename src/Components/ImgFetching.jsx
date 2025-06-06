@@ -65,11 +65,14 @@ const ImgFetching = ({ input2, onFetchComplete, onModalClose }) => {
       .get(url, { params, headers })
       .then(async (response) => {
         const encodedImageUrl =
-          (await response?.data?.data?.imageData?.encodededURI) || "";
+          (await response?.data?.data?.imageData?.encodededURI) ||
+          "Encoded Image URL Not Found!!";
         const imageDescription =
-          (await response?.data?.data?.postData?.postDescription) || "";
+          (await response?.data?.data?.postData?.postDescription) ||
+          "Image Description Not Found!!";
         const imageAuthor =
-          (await response?.data?.data?.postData?.postTitle) || "";
+          (await response?.data?.data?.postData?.postTitle) ||
+          "Image Author Not Found !!";
 
         setImageDescription(imageDescription);
         setImageAuthor(imageAuthor);

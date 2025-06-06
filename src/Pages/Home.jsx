@@ -3,7 +3,6 @@ import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
 import ProofSection from "../Components/ProofSection";
 import { Zap, Plug, Shield, Target, Plus, Download } from "lucide-react";
-import Pricing from "../Components/Pricing";
 import { API_LINK, Docs_LINK } from "../utils/contants";
 import ThreeDCard from "../Components/3d-card-demo";
 

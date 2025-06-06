@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "../Components/Navbar";
-import Carousel from "../Components/Carousel";
 import Footer from "../Components/Footer";
 import ProofSection from "../Components/ProofSection";
 import { Zap, Plug, Shield, Target, Plus, Download } from "lucide-react";
-import Pricing from "../Components/Pricing";
 import { API_LINK, Docs_LINK } from "../utils/contants";
 import ThreeDCard from "../Components/3d-card-demo";
 
@@ -161,8 +159,8 @@ const Home = () => {
 original quality."
                   imageSrc="/video-page-for-product-section.png"
                   imageAlt="Video Downloader Tool"
-                  ctaText="Go to Video Saver"
-                  ctaLink="/video"
+                  ctaText="Coming Soon..."
+                  ctaLink="#"
                 />
                 <ThreeDCard
                   title="Image Extractor"

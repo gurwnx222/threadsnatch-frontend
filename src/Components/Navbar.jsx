@@ -108,12 +108,12 @@ const Navbar = () => {
                 >
                   Carousel Saver
                 </Link>
-                <Link
+                {/*  <Link
                   to="/video"
                   className="block px-4 py-2 text-white hover:bg-[#3A3A3C] cursor-pointer"
                 >
                   Video Saver
-                </Link>
+                </Link> */}
                 <Link
                   to="/image"
                   className="block px-4 py-2 text-white hover:bg-[#3A3A3C] cursor-pointer"
@@ -188,13 +188,13 @@ const Navbar = () => {
                 >
                   Carousel Saver
                 </Link>
-                <Link
+                {/* <Link
                   to="/video"
                   className="text-white hover:text-gray-300 transition-colors cursor-pointer"
                   onClick={(e) => handleMobileLinkClick("/video", e)}
                 >
                   Video Saver
-                </Link>
+                </Link> */}
                 <Link
                   to="/image"
                   className="text-white hover:text-gray-300 transition-colors cursor-pointer"

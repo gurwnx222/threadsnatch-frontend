@@ -5,13 +5,144 @@ import axios from "axios";
 
 // Configuration constants
 const CONFIG = {
-  PROXY_BASE_URL: import.meta.env.VITE_PROXY_IMAGE_ENDPOINT,
+  PROXY_BASE_URL: import.meta.env.VITE_PROXY_CAROUSEL_ENDPOINT,
   CAROUSEL_API_URL: import.meta.env.VITE_RAPID_API_ENDPOINT_CAROUSEL,
   REQUEST_TIMEOUT: 30000,
-  MAX_CONCURRENT_LOADS: 3, // Limit concurrent image loads
+  MAX_CONCURRENT_LOADS: 3,
   RETRY_ATTEMPTS: 3,
   RETRY_DELAY: 1000,
+  CACHE_DURATION: 10 * 60 * 1000, //60 min in milliseconds
 };
+
+// In-memory cache for images with timestamp-based expiration
+class ImageCache {
+  constructor() {
+    this.cache = new Map();
+    this.blobCache = new Map();
+  }
+
+  // Generate cache key from URL
+  getCacheKey(url) {
+    return btoa(url).replace(/[^a-zA-Z0-9]/g, "");
+  }
+
+  // Check if cache entry is still valid
+  isValid(timestamp) {
+    return Date.now() - timestamp < CONFIG.CACHE_DURATION;
+  }
+
+  // Get cached image data
+  get(url) {
+    const key = this.getCacheKey(url);
+    const entry = this.cache.get(key);
+
+    if (entry && this.isValid(entry.timestamp)) {
+      //  console.log(`Cache hit for: ${url}`);
+      return entry.data;
+    }
+
+    if (entry) {
+      // Cache expired, remove it
+      this.remove(url);
+    }
+
+    return null;
+  }
+
+  // Store image data in cache
+  set(url, data) {
+    const key = this.getCacheKey(url);
+    this.cache.set(key, {
+      data,
+      timestamp: Date.now(),
+      url,
+    });
+    // console.log(`Cached image: ${url}`);
+  }
+
+  // Get cached blob URL
+  getBlobUrl(url) {
+    const key = this.getCacheKey(url);
+    const entry = this.blobCache.get(key);
+
+    if (entry && this.isValid(entry.timestamp)) {
+      console.log(`Blob cache hit for: ${url}`);
+      return entry.blobUrl;
+    }
+
+    if (entry) {
+      // Revoke old blob URL and remove from cache
+      URL.revokeObjectURL(entry.blobUrl);
+      this.blobCache.delete(key);
+    }
+
+    return null;
+  }
+
+  // Store blob URL in cache
+  setBlobUrl(url, blobUrl) {
+    const key = this.getCacheKey(url);
+    this.blobCache.set(key, {
+      blobUrl,
+      timestamp: Date.now(),
+      url,
+    });
+    // console.log(`Cached blob URL: ${url}`);
+  }
+
+  // Remove from cache
+  remove(url) {
+    const key = this.getCacheKey(url);
+    this.cache.delete(key);
+
+    const blobEntry = this.blobCache.get(key);
+    if (blobEntry) {
+      URL.revokeObjectURL(blobEntry.blobUrl);
+      this.blobCache.delete(key);
+    }
+  }
+
+  // Clear expired entries
+  clearExpired() {
+    const now = Date.now();
+
+    // Clear regular cache
+    for (const [key, entry] of this.cache.entries()) {
+      if (now - entry.timestamp >= CONFIG.CACHE_DURATION) {
+        this.cache.delete(key);
+      }
+    }
+
+    // Clear blob cache
+    for (const [key, entry] of this.blobCache.entries()) {
+      if (now - entry.timestamp >= CONFIG.CACHE_DURATION) {
+        URL.revokeObjectURL(entry.blobUrl);
+        this.blobCache.delete(key);
+      }
+    }
+  }
+
+  // Get cache stats
+  getStats() {
+    return {
+      cacheSize: this.cache.size,
+      blobCacheSize: this.blobCache.size,
+      cacheEntries: Array.from(this.cache.values()).map((entry) => ({
+        url: entry.url,
+        age: Date.now() - entry.timestamp,
+        valid: this.isValid(entry.timestamp),
+      })),
+    };
+  }
+}
+
+// Global cache instance
+const imageCache = new ImageCache();
+
+// Clean up expired cache entries every 10 minutes
+setInterval(() => {
+  imageCache.clearExpired();
+}, 10 * 60 * 1000);
 
 // Headers for rapid api
 const headers = {
@@ -22,26 +153,23 @@ const headers = {
 // Enhanced utility functions
 const createProxyUrl = (originalUrl) => {
   if (!originalUrl || typeof originalUrl !== "string") {
-    console.error("Invalid URL provided to createProxyUrl:", originalUrl);
-    return null;
+    //  console.error("Invalid URL provided to createProxyUrl:", originalUrl);
+    return `Invalid URL provided to createProxyUrl: ${originalUrl}`;
   }
 
   let cleanUrl = originalUrl.trim();
 
-  // More robust cleaning of index prefixes and malformed URLs
   const indexPrefixMatch = cleanUrl.match(/^\d+:\s*/);
   if (indexPrefixMatch) {
     cleanUrl = cleanUrl.substring(indexPrefixMatch[0].length);
   }
 
-  // Handle already proxied URLs more carefully
   if (cleanUrl.startsWith("/proxy/image")) {
     return cleanUrl.startsWith("http")
       ? cleanUrl
       : `${CONFIG.PROXY_BASE_URL}${cleanUrl}`;
   }
 
-  // Validate URL format
   try {
     new URL(cleanUrl);
   } catch (error) {
@@ -49,32 +177,58 @@ const createProxyUrl = (originalUrl) => {
     return null;
   }
 
-  // Create proxy URL with proper encoding
   const encodedUrl = encodeURIComponent(cleanUrl);
   return `${CONFIG.PROXY_BASE_URL}?url=${encodedUrl}`;
 };
 
-// Enhanced image preloading with retry logic
-const preloadImage = (src, retries = CONFIG.RETRY_ATTEMPTS) => {
+// Enhanced image loading with cache support
+const loadImageWithCache = async (src, retries = CONFIG.RETRY_ATTEMPTS) => {
+  // Check cache first
+  const cachedBlobUrl = imageCache.getBlobUrl(src);
+  if (cachedBlobUrl) {
+    return cachedBlobUrl;
+  }
+
   return new Promise((resolve, reject) => {
     const img = new Image();
-
-    // Add CORS attributes to handle cross-origin images
     img.crossOrigin = "anonymous";
     img.referrerPolicy = "no-referrer";
 
-    img.onload = () => {
-      console.log(`Successfully preloaded: ${src}`);
-      resolve(src);
+    img.onload = async () => {
+      try {
+        // Convert to blob and cache it
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+        canvas.width = img.naturalWidth;
+        canvas.height = img.naturalHeight;
+        ctx.drawImage(img, 0, 0);
+
+        canvas.toBlob(
+          async (blob) => {
+            if (blob) {
+              const blobUrl = URL.createObjectURL(blob);
+              imageCache.setBlobUrl(src, blobUrl);
+              //    console.log(`Successfully loaded and cached: ${src}`);
+              resolve(blobUrl);
+            } else {
+              resolve(src); // Fallback to original URL
+            }
+          },
+          "image/jpeg",
+          0.9
+        );
+      } catch (error) {
+        console.warn(`Failed to cache image ${src}:`, error);
+        resolve(src); // Fallback to original URL
+      }
     };
 
     img.onerror = (error) => {
-      console.warn(`Failed to preload ${src}, retries left: ${retries - 1}`);
+      console.warn(`Failed to load ${src}, retries left: ${retries - 1}`);
 
       if (retries > 1) {
-        // Retry with exponential backoff
         setTimeout(() => {
-          preloadImage(src, retries - 1)
+          loadImageWithCache(src, retries - 1)
             .then(resolve)
             .catch(reject);
         }, CONFIG.RETRY_DELAY * (CONFIG.RETRY_ATTEMPTS - retries + 1));
@@ -91,8 +245,8 @@ const preloadImage = (src, retries = CONFIG.RETRY_ATTEMPTS) => {
   });
 };
 
-// Batch preloader to avoid overwhelming the server
-const preloadImagesInBatches = async (imageUrls) => {
+// Batch image loader with caching
+const loadImagesInBatches = async (imageUrls) => {
   const results = [];
   const failures = [];
 
@@ -101,10 +255,10 @@ const preloadImagesInBatches = async (imageUrls) => {
 
     const batchPromises = batch.map(async (url, index) => {
       try {
-        await preloadImage(url);
-        return { success: true, url, index: i + index };
+        const cachedUrl = await loadImageWithCache(url);
+        return { success: true, url, cachedUrl, index: i + index };
       } catch (error) {
-        console.error(`Batch preload failed for ${url}:`, error);
+        console.error(`Batch load failed for ${url}:`, error);
         return { success: false, url, index: i + index, error };
       }
     });
@@ -121,9 +275,9 @@ const preloadImagesInBatches = async (imageUrls) => {
       }
     });
 
-    // Small delay between batches to avoid rate limiting
+    // Small delay between batches
     if (i + CONFIG.MAX_CONCURRENT_LOADS < imageUrls.length) {
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      await new Promise((resolve) => setTimeout(resolve, 300));
     }
   }
 
@@ -132,8 +286,11 @@ const preloadImagesInBatches = async (imageUrls) => {
 
 const downloadImage = async (imageUrl, filename = "threadsnatch.online_") => {
   try {
-    // Add fetch options to handle CORS issues
-    const response = await fetch(imageUrl, {
+    // Check if we have a cached blob URL
+    const cachedBlobUrl = imageCache.getBlobUrl(imageUrl);
+    let downloadUrl = cachedBlobUrl || imageUrl;
+
+    const response = await fetch(downloadUrl, {
       mode: "cors",
       credentials: "omit",
       referrerPolicy: "no-referrer",
@@ -144,13 +301,13 @@ const downloadImage = async (imageUrl, filename = "threadsnatch.online_") => {
     }
 
     const blob = await response.blob();
-    const url = window.URL.createObjectURL(blob);
+    const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
     a.download = filename;
     document.body.appendChild(a);
     a.click();
-    window.URL.revokeObjectURL(url);
+    URL.revokeObjectURL(url);
     document.body.removeChild(a);
   } catch (error) {
     console.error("Download failed:", error);
@@ -165,19 +322,21 @@ const CrselFetching = ({ input2 }) => {
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [imageLoadStates, setImageLoadStates] = useState({}); // Track individual image load states
+  const [imageLoadStates, setImageLoadStates] = useState({});
+  const [cachedImageUrls, setCachedImageUrls] = useState({}); // Store cached URLs
   const [carouselData, setCarouselData] = useState({
     author: "",
     description: "",
   });
 
-  // Fetch carousel data with enhanced error handling
+  // Fetch carousel data with enhanced caching
   const fetchCarouselData = useCallback(async () => {
     if (!input2) return;
 
     setLoading(true);
     setError(null);
     setImageLoadStates({});
+    setCachedImageUrls({});
 
     try {
       console.log("Fetching carousel data for:", input2);
@@ -191,13 +350,11 @@ const CrselFetching = ({ input2 }) => {
       const { data } = response;
       console.log("Carousel API response received");
 
-      // Extract metadata
       const crselDescription =
         data?.metaTags?.postDescription || "Carousel Description Not Found!!";
       const crselAuthor =
         data?.metaTags?.postTitle || "Carousel Author Not Found !!";
 
-      // Validate response structure
       if (
         !data ||
         !data.encodedURICrsel ||
@@ -211,7 +368,6 @@ const CrselFetching = ({ input2 }) => {
         description: crselDescription,
       });
 
-      // Process images with better error handling
       const processedImages = data.encodedURICrsel
         .map((imageUrl, index) => {
           const proxyUrl = createProxyUrl(imageUrl);
@@ -255,16 +411,20 @@ const CrselFetching = ({ input2 }) => {
       setImages(processedImages);
       setCurrentImageIndex(0);
 
-      // Preload images in batches to avoid CORS issues
+      // Load and cache images
       const imageUrls = processedImages.map((img) => img.proxyUrl);
-      preloadImagesInBatches(imageUrls).then(({ results, failures }) => {
-        console.log(`Preloaded ${results.length} images successfully`);
+      loadImagesInBatches(imageUrls).then(({ results, failures }) => {
+        // console.log(`Loaded and cached ${results.length} images successfully`);
         if (failures.length > 0) {
-          console.warn(
-            `Failed to preload ${failures.length} images:`,
-            failures
-          );
+          console.warn(`Failed to load ${failures.length} images:`, failures);
         }
+
+        // Update cached URLs
+        const newCachedUrls = {};
+        results.forEach(({ index, cachedUrl }) => {
+          newCachedUrls[index] = cachedUrl;
+        });
+        setCachedImageUrls(newCachedUrls);
 
         // Update load states
         setImageLoadStates((prev) => {
@@ -313,21 +473,25 @@ const CrselFetching = ({ input2 }) => {
     [images.length]
   );
 
-  // Enhanced download handler
+  // Enhanced download handler with cache support
   const handleDownload = useCallback(async () => {
     if (!images[currentImageIndex]) return;
 
     try {
       const currentImage = images[currentImageIndex];
-      const filename = `${carouselData.author || "image"}-${
+      const filename = `${"threadsnatch.online_image"}-${
         currentImageIndex + 1
       }.jpg`;
-      await downloadImage(currentImage.proxyUrl, filename);
+
+      // Use cached URL if available, otherwise use proxy URL
+      const downloadUrl =
+        cachedImageUrls[currentImageIndex] || currentImage.proxyUrl;
+      await downloadImage(downloadUrl, filename);
     } catch (error) {
       console.error("Download failed:", error);
       setError(`Download failed: ${error.message}`);
     }
-  }, [images, currentImageIndex, carouselData.author]);
+  }, [images, currentImageIndex, carouselData.author, cachedImageUrls]);
 
   const handleClose = useCallback(() => {
     setShowModal(false);
@@ -357,6 +521,11 @@ const CrselFetching = ({ input2 }) => {
     error: false,
     loading: true,
   };
+
+  // Get the display URL (cached if available, otherwise proxy URL)
+  const displayUrl = currentImage
+    ? cachedImageUrls[currentImageIndex] || currentImage.proxyUrl
+    : "";
 
   return (
     <div className="w-full max-w-md mx-auto">
@@ -452,7 +621,7 @@ const CrselFetching = ({ input2 }) => {
                               loading: true,
                             },
                           }));
-                          // Force reload by updating the src
+                          // Force reload
                           const img = document.querySelector(
                             `img[data-index="${currentImageIndex}"]`
                           );
@@ -469,12 +638,12 @@ const CrselFetching = ({ input2 }) => {
                   </div>
                 )}
 
-                {/* Actual image */}
+                {/* Actual image with cached URL */}
                 <img
                   data-index={currentImageIndex}
-                  src={currentImage.proxyUrl}
+                  src={displayUrl}
                   alt={`${currentImage.title} - Image ${currentImageIndex + 1}`}
-                  className={`w-full h-auto object-cover transition-opacity duration-300 ${
+                  className={`w-full h-auto object-cover transition-opacity duration-200 ${
                     currentImageState.loaded ? "opacity-100" : "opacity-0"
                   }`}
                   crossOrigin="anonymous"
@@ -503,7 +672,7 @@ const CrselFetching = ({ input2 }) => {
                   </>
                 )}
 
-                {/* Dots indicator with load status */}
+                {/* Enhanced dots indicator with cache status */}
                 {images.length > 1 && (
                   <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
                     {images.map((_, index) => {
@@ -512,6 +681,8 @@ const CrselFetching = ({ input2 }) => {
                         error: false,
                         loading: true,
                       };
+                      const isCached = !!cachedImageUrls[index];
+
                       return (
                         <button
                           key={index}
@@ -520,12 +691,19 @@ const CrselFetching = ({ input2 }) => {
                               ? "bg-white"
                               : imageState.error
                               ? "bg-red-400 hover:bg-red-300"
-                              : imageState.loaded
+                              : imageState.loaded && isCached
                               ? "bg-green-400 hover:bg-green-300"
+                              : imageState.loaded
+                              ? "bg-blue-400 hover:bg-blue-300"
                               : "bg-gray-400 hover:bg-gray-300"
                           }`}
                           onClick={() => handleImageSelect(index)}
-                          aria-label={`Go to image ${index + 1}`}
+                          aria-label={`Go to image ${index + 1} ${
+                            isCached ? "(cached)" : ""
+                          }`}
+                          title={`Image ${index + 1} ${
+                            isCached ? "(cached)" : ""
+                          }`}
                         />
                       );
                     })}
@@ -533,6 +711,14 @@ const CrselFetching = ({ input2 }) => {
                 )}
               </div>
             </div>
+
+            {/* Cache info (development only) */}
+            {/*process.env.NODE_ENV === "development" && (
+              <div className="mt-2 px-6 text-xs text-gray-400">
+                Cache: {Object.keys(cachedImageUrls).length}/{images.length}{" "}
+                images cached
+              </div>
+            )*/}
           </>
         )}
 

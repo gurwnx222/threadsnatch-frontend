@@ -10,6 +10,7 @@ import TNC from "./Pages/terms";
 import ImageSaver from "./Pages/ImageSaver";
 //import VideoSaver from "./Pages/VideoSaver";
 import CarouselSaver from "./Pages/CarouselSaver";
+import UnderWorkingPage from "./Pages/UnderWorkingPage";
 
 export default function App() {
   return (
@@ -20,13 +21,14 @@ export default function App() {
         <Router>
           {/* <Navbar /> */}
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/terms" element={<TNC />} />
-            <Route path="/carousel" element={<CarouselSaver />} />
+            {/* <Route path="/" element={<Home />} /> */}
+            {/* <Route path="/about" element={<About />} /> */}
+            {/* <Route path="/contact" element={<Contact />} /> */}
+            {/* <Route path="/terms" element={<TNC />} /> */}
+            {/* <Route path="/carousel" element={<CarouselSaver />} /> */}
             {/*<Route path="/video" element={<VideoSaver />} />*/}
-            <Route path="/image" element={<ImageSaver />} />
+            {/* <Route path="/image" element={<ImageSaver />} /> */}
+            <Route path="/" element={<UnderWorkingPage />} />
           </Routes>
         </Router>
       </div>

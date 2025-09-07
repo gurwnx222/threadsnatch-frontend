@@ -2,6 +2,7 @@ import React from "react";
 import Navbar from "../Components/Navbar";
 import PhilosophyCard from "../Components/Cards";
 import Footer from "../Components/Footer";
+import ChatbotContainer from "../Components/ChatbotContainer";
 
 const About = () => {
   return (
@@ -73,6 +74,9 @@ const About = () => {
       <div className="mt-20">
         <Footer className="w-[99vw]" />
       </div>
+
+      {/* adding chatbot */}
+      <ChatbotContainer />
     </div>
   );
 };

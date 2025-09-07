@@ -1,3 +1,4 @@
+import ChatbotContainer from "../Components/ChatbotContainer";
 import Navbar from "../Components/Navbar";
 import { FaTwitter, FaEnvelope } from "react-icons/fa";
 
@@ -59,6 +60,9 @@ const Contact = () => {
             </div>
           </div>
         </div>
+
+        {/* adding chatbot */}
+        <ChatbotContainer />
       </div>
     </>
   );

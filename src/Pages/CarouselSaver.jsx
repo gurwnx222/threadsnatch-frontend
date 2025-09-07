@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { FaPaperPlane } from "react-icons/fa";
 import Navbar from "../Components/Navbar";
 import CrselFetching from "../Components/CarouselFetching";
+import ChatbotContainer from "../Components/ChatbotContainer";
 
 const CarouselSaver = () => {
   // for input fields
@@ -79,6 +80,9 @@ const CarouselSaver = () => {
           2025©ThreadSnatch.online
         </div>
       </div>
+
+        {/* adding chatbot */}
+      <ChatbotContainer />
     </div>
   );
 };

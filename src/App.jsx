@@ -11,6 +11,7 @@ import ImageSaver from "./Pages/ImageSaver";
 // import VideoSaver from "./Pages/VideoSaver";
 import CarouselSaver from "./Pages/CarouselSaver";
 import UnderWorkingPage from "./Pages/UnderWorkingPage";
+import Testing from "./Pages/Testing";
 
 export default function App() {
   return (
@@ -29,6 +30,7 @@ export default function App() {
             {/* <Route path="/video" element={<VideoSaver />} /> */}
             <Route path="/image" element={<ImageSaver />} />
             {/* <Route path="/" element={<UnderWorkingPage />} /> */}
+            <Route path="/testing" element={<Testing />} />
           </Routes>
         </Router>
       </div>

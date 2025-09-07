@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { FaPaperPlane } from "react-icons/fa";
 import Navbar from "../Components/Navbar";
 import ImgFetching from "../Components/ImgFetching";
+import ChatbotContainer from "../Components/ChatbotContainer";
 
 const ImageSaver = () => {
   // for input fields
@@ -229,6 +230,9 @@ const ImageSaver = () => {
           2025©ThreadSnatch.online
         </div>
       </div>
+
+      {/* adding chatbot */}
+      <ChatbotContainer />
     </div>
   );
 };
